@@ -1,0 +1,461 @@
+import { useState, useEffect } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import ScrollIndicator from "./ScrollIndicator";
+
+/* ============================================================
+   HOW IMAGE OPTIMIZATION WORKS HERE
+   ============================================================
+   Each import uses vite-imagetools query parameters:
+     ?w=480;768;1280;1920;3840   → generate 5 widths automatically
+     &format=webp                → convert to WebP (smaller file, better quality)
+     &as=srcset                  → return a ready-made srcset string
+
+   The browser then picks the most appropriate size:
+     480w   → small phones  (saves ~70% bandwidth vs full image)
+     768w   → tablets
+     1280w  → laptops
+     1920w  → full HD desktops
+     3840w  → 4K / TV screens
+
+   You only ever need ONE original image file.
+   Vite does all the resizing at build time — nothing happens at runtime.
+   ============================================================ */
+
+import hero1srcset  from "../assets/hero1.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero2srcset  from "../assets/hero2.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero3srcset  from "../assets/hero3.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero4srcset  from "../assets/hero4.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero5srcset  from "../assets/hero5.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero6srcset  from "../assets/hero6.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero7srcset  from "../assets/hero7.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero8srcset  from "../assets/hero8.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero9srcset  from "../assets/hero9.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero10srcset from "../assets/hero10.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+
+/* Fallback full-res imports for browsers that don't support WebP
+   (very rare in 2025, but good practice) */
+import hero1fb  from "../assets/hero1.jpg";
+import hero2fb  from "../assets/hero2.jpg";
+import hero3fb  from "../assets/hero3.jpg";
+import hero4fb  from "../assets/hero4.jpg";
+import hero5fb  from "../assets/hero5.jpg";
+import hero6fb  from "../assets/hero6.jpg";
+import hero7fb  from "../assets/hero7.jpg";
+import hero8fb  from "../assets/hero8.jpg";
+import hero9fb  from "../assets/hero9.jpg";
+import hero10fb from "../assets/hero10.jpg";
+
+/* ============================================================
+   SLIDES
+   ============================================================
+   Each slide has:
+
+     srcset   → responsive srcset string (5 sizes, WebP)
+     fallback → original .jpg for old browsers
+     pos      → objectPosition — controls which part of the photo
+                stays in frame when "cover" crops it to fit the screen.
+
+                Tune this per photo once you see how each looks:
+                  "center center" → centred crop (default, safe for most)
+                  "center 25%"    → keeps upper quarter (rooflines, sky)
+                  "center 35%"    → keeps upper third (facades, top floors)
+                  "center 60%"    → keeps lower half (entrances, ground)
+                  "left center"   → subject is on the left
+                  "right center"  → subject is on the right
+   ============================================================ */
+const SLIDES = [
+  { srcset: hero1srcset,  fallback: hero1fb,  pos: "center 35%"    },
+  { srcset: hero2srcset,  fallback: hero2fb,  pos: "center 40%"    },
+  { srcset: hero3srcset,  fallback: hero3fb,  pos: "center 30%"    },
+  { srcset: hero4srcset,  fallback: hero4fb,  pos: "center center" },
+  { srcset: hero5srcset,  fallback: hero5fb,  pos: "center 40%"    },
+  { srcset: hero6srcset,  fallback: hero6fb,  pos: "center center" },
+  { srcset: hero7srcset,  fallback: hero7fb,  pos: "center 35%"    },
+  { srcset: hero8srcset,  fallback: hero8fb,  pos: "center center" },
+  { srcset: hero9srcset,  fallback: hero9fb,  pos: "center 30%"    },
+  { srcset: hero10srcset, fallback: hero10fb, pos: "center center" },
+];
+
+/* ============================================================
+   COMPONENT
+   ============================================================ */
+export default function Hero() {
+  const [current, setCurrent] = useState(0);
+
+  const { scrollY } = useScroll();
+  const imageY      = useTransform(scrollY, [0, 800], [0, 40]);
+  const opacityFade = useTransform(scrollY, [0, 500], [1, 0.9]);
+  const contentY    = useTransform(scrollY, [0, 600], [0, -40]);
+
+  /* Auto-advance every 6 seconds */
+  useEffect(() => {
+    const interval = setInterval(
+      () => setCurrent((c) => (c + 1) % SLIDES.length),
+      6000
+    );
+    return () => clearInterval(interval);
+  }, []);
+
+  const slide = SLIDES[current];
+
+  return (
+    <div id="home">
+
+      {/* ── Breakpoint overrides ───────────────────────────── */}
+      <style>{`
+        @media (max-height: 480px) and (orientation: landscape) {
+          .hero-content  { padding-top: 28px !important; padding-bottom: 52px !important; }
+          .hero-h1       { font-size: 1rem !important; line-height: 1.4 !important; }
+          .hero-divider  { margin-top: 8px !important; margin-bottom: 8px !important; }
+          .hero-eyebrow  { margin-bottom: 0 !important; }
+          .hero-estd     { margin-bottom: 8px !important; }
+          .hero-cta      { margin-top: 8px !important; }
+        }
+        @media (max-width: 360px) {
+          .hero-h1      { font-size: 1rem !important; letter-spacing: 0.06em !important; }
+          .hero-eyebrow { letter-spacing: 0.14em !important; font-size: 7px !important; }
+          .hero-dot     { width: 14px !important; }
+        }
+        @media (min-width: 2560px) {
+          .hero-inner   { max-width: 1000px !important; }
+          .hero-h1      { font-size: 3.6rem !important; }
+          .hero-eyebrow { font-size: 14px !important; }
+          .hero-estd    { font-size: 11px !important; }
+          .hero-cta     { font-size: 13px !important; padding: 16px 44px !important; }
+        }
+      `}</style>
+
+      <section
+        style={{
+          position:  "relative",
+          width:     "100%",
+          height:    "100svh",
+          minHeight: "320px",
+          overflow:  "hidden",
+        }}
+      >
+
+        {/* ── BACKGROUND SLIDES ─────────────────────────────── */}
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2.6, ease: "easeInOut" }}
+            style={{
+              position:   "absolute",
+              inset:       0,
+              y:           imageY,
+              /*
+                Dark background fills any letterbox/pillarbox gaps
+                on portrait screens when objectFit is "contain".
+              */
+              background: "#111",
+            }}
+          >
+            {/*
+              <picture> gives the browser a WebP srcset with 5 sizes
+              AND a .jpg fallback in one clean tag.
+
+              sizes="100vw" tells the browser this image always fills
+              the full viewport width — it uses this to pick the right
+              srcset entry before downloading anything.
+
+              Result:
+                Phone  (480px)  → downloads ~40KB  WebP
+                Tablet (768px)  → downloads ~90KB  WebP
+                Laptop (1280px) → downloads ~200KB WebP
+                Desktop(1920px) → downloads ~380KB WebP
+                TV    (3840px)  → downloads ~900KB WebP
+              vs. always downloading the full 2–5MB original .jpg
+            */}
+            <picture style={{ width: "100%", height: "100%", display: "block" }}>
+              {/* WebP srcset — modern browsers */}
+              <source
+                srcSet={slide.srcset}
+                type="image/webp"
+                sizes="100vw"
+              />
+              {/* .jpg fallback — Safari < 14, IE, very old Android */}
+              <img
+                src={slide.fallback}
+                alt={`Hero slide ${current + 1}`}
+                style={{
+                  width:  "100%",
+                  height: "100%",
+                  display: "block",
+                  /*
+                    "cover" always — image fills the full screen on
+                    every device (phone, tablet, laptop, desktop, TV).
+                    objectPosition is tuned per slide so the most
+                    important subject (building facade, entrance, etc.)
+                    stays visible even when the image is cropped to fit
+                    a portrait phone or an ultrawide monitor.
+                  */
+                  objectFit:      "cover",
+                  objectPosition: slide.pos,
+                  willChange:     "opacity, transform",
+                }}
+              />
+            </picture>
+
+            {/* Cinematic gradient overlay */}
+            <div
+              style={{
+                position:   "absolute",
+                inset:       0,
+                background:
+                  "linear-gradient(180deg," +
+                  "rgba(0,0,0,0.65) 0%,"   +
+                  "rgba(0,0,0,0.22) 45%,"  +
+                  "rgba(0,0,0,0.22) 55%,"  +
+                  "rgba(0,0,0,0.80) 100%)",
+              }}
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {/* ── ARCHITECTURAL GRID LINES ──────────────────────── */}
+        <div
+          aria-hidden
+          style={{
+            position:            "absolute",
+            inset:                0,
+            pointerEvents:       "none",
+            display:             "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            opacity:              0.18,
+            zIndex:               2,
+          }}
+        >
+          <div style={{ borderRight: "1px solid rgba(255,255,255,0.15)" }} />
+          <div style={{ borderRight: "1px solid rgba(255,255,255,0.15)" }} />
+          <div />
+        </div>
+
+        {/* Horizontal axis line */}
+        <div
+          style={{
+            position:      "absolute",
+            top:           "50%",
+            width:         "100%",
+            height:        "1px",
+            background:    "rgba(255,255,255,0.08)",
+            pointerEvents: "none",
+            zIndex:         2,
+          }}
+        />
+
+        {/* ── HERO CONTENT ──────────────────────────────────── */}
+        <motion.div
+          className="hero-content"
+          style={{
+            opacity:        opacityFade,
+            y:              contentY,
+            position:       "absolute",
+            inset:           0,
+            zIndex:          10,
+            display:        "flex",
+            alignItems:     "center",
+            justifyContent: "center",
+            textAlign:      "center",
+            paddingBottom:  "clamp(60px,10vh,90px)",
+            paddingTop:     "clamp(60px,8vh,80px)",
+            pointerEvents:  "none",
+            boxSizing:      "border-box",
+          }}
+        >
+          <div
+            className="hero-inner"
+            style={{
+              maxWidth:      "760px",
+              width:         "clamp(260px,88vw,760px)",
+              pointerEvents: "auto",
+              padding:       "0 clamp(16px,5vw,0px)",
+            }}
+          >
+            {/* Gold eyebrow */}
+            <motion.p
+              className="hero-eyebrow"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.3 }}
+              style={{
+                fontFamily:    "Poppins, sans-serif",
+                fontSize:      "clamp(7.5px,1.8vw,11px)",
+                letterSpacing: "clamp(0.16em,0.4vw,0.48em)",
+                color:         "#C9A84C",
+                textTransform: "uppercase",
+                margin:         0,
+              }}
+            >
+              Architecture · Interior · Construction
+            </motion.p>
+
+            {/* Top gold divider */}
+            <motion.div
+              className="hero-divider"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1, delay: 1 }}
+              style={{
+                width:      "clamp(40px,10vw,100px)",
+                height:     "1px",
+                margin:     "clamp(10px,3vh,30px) auto",
+                background: "linear-gradient(90deg,transparent,#C9A84C,transparent)",
+              }}
+            />
+
+            {/* Estd. 2020 */}
+            <motion.p
+              className="hero-estd"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 0.8, y: 0 }}
+              transition={{ duration: 1.1, delay: 0.5 }}
+              style={{
+                fontFamily:    "Poppins, sans-serif",
+                fontSize:      "clamp(7px,1.6vw,9px)",
+                letterSpacing: "clamp(0.14em,0.4vw,0.48em)",
+                color:         "#ffffff",
+                marginTop:     "4px",
+                marginBottom:  "clamp(12px,3vh,25px)",
+                textTransform: "uppercase",
+              }}
+            >
+              |&nbsp;&nbsp;Estd. 2020&nbsp;&nbsp;|
+            </motion.p>
+
+            {/* Main heading */}
+            <motion.h1
+              className="hero-h1"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 0.85, y: 0 }}
+              transition={{ duration: 1.1, delay: 0.5 }}
+              style={{
+                fontFamily:    "Inter, sans-serif",
+                fontWeight:     400,
+                fontSize:      "clamp(1.05rem,5.5vw,2.7rem)",
+                marginTop:     "clamp(4px,1.5vh,10px)",
+                marginBottom:   "0px",
+                color:         "#fff",
+                lineHeight:     1.55,
+                letterSpacing: "clamp(0.04em,2.5vw,0.35em)",
+                opacity:        0.5,
+                overflowWrap:  "break-word",
+                wordBreak:     "break-word",
+              }}
+            >
+              ARCHITECTURE
+              <br />
+              DESIGNED WITH
+              <br />
+              INTENT
+            </motion.h1>
+
+            {/* Bottom gold divider */}
+            <motion.div
+              className="hero-divider"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1, delay: 1 }}
+              style={{
+                width:      "clamp(40px,10vw,100px)",
+                height:     "1px",
+                margin:     "clamp(8px,2.5vh,19px) auto",
+                background: "linear-gradient(90deg,transparent,#C9A84C,transparent)",
+              }}
+            />
+
+            {/* CTA button */}
+            <motion.button
+              className="hero-cta"
+              initial={{ opacity: 0, y: 1 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              whileHover={{ scale: 1.05, backgroundColor: "#fff", color: "#111" }}
+              onClick={() =>
+                document
+                  .getElementById("projects")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+              style={{
+                marginTop:     "clamp(10px,2.5vh,20px)",
+                padding:       "clamp(9px,1.8vh,13px) clamp(16px,4vw,34px)",
+                border:        "1px solid rgba(255,255,255,0.8)",
+                background:    "transparent",
+                color:         "#fff",
+                cursor:        "pointer",
+                letterSpacing: "clamp(0.1em,1.5vw,0.35em)",
+                fontFamily:    "Inter, sans-serif",
+                fontWeight:     500,
+                fontSize:      "clamp(8px,1.8vw,11px)",
+                minHeight:     "40px",
+                minWidth:      "100px",
+                touchAction:   "manipulation",
+              }}
+            >
+              VIEW PROJECTS ›
+            </motion.button>
+          </div>
+        </motion.div>
+
+        {/* ── BOTTOM STACK: scroll indicator + slide dots ───── */}
+        <div
+          style={{
+            position:      "absolute",
+            bottom:         0,
+            left:           0,
+            right:          0,
+            zIndex:         11,
+            display:       "flex",
+            flexDirection: "column",
+            alignItems:    "center",
+            gap:           "clamp(8px,1.8vh,18px)",
+            paddingBottom: "calc(env(safe-area-inset-bottom,0px) + clamp(10px,2vh,20px))",
+            pointerEvents: "none",
+          }}
+        >
+          {/* Scroll indicator */}
+          <ScrollIndicator nextSection="about" dark={true} hero={true} />
+
+          {/* Slide navigation bars — UNTOUCHED */}
+          <div
+            style={{
+              display:        "flex",
+              justifyContent: "center",
+              alignItems:     "center",
+              gap:            "clamp(4px,1vw,10px)",
+              paddingLeft:    "16px",
+              paddingRight:   "16px",
+              flexWrap:       "nowrap",
+              pointerEvents:  "auto",
+            }}
+          >
+            {SLIDES.map((_, i) => (
+              <div
+                key={i}
+                className="hero-dot"
+                onClick={() => setCurrent(i)}
+                style={{
+                  width:      "clamp(18px, 3.5vw, 38px)",
+                  height:     "3px",
+                  flexShrink:  0,
+                  background: i === current ? "#C9A84C" : "rgba(255,255,255,0.35)",
+                  transition: "background-color .45s ease",
+                  cursor:     "pointer",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+
+      </section>
+    </div>
+  );
+}

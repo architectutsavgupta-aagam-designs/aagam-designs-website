@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Critical: proper viewport for ALL devices — phones, tablets, laptops, TVs -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+    <!-- Theme color matches navbar cream for Android Chrome -->
+    <meta name="theme-color" content="#F9F5F2" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="robots" content="index, follow" />
+    <title>Aagam Designs | Best Architect in Kanpur | Ar. Utsav Gupta</title>
+    <meta name="description" content="Aagam Designs — Premium architecture, interior design and construction in Kanpur, UP. Led by Ar. Utsav Gupta." />
+    <!-- Fonts: Poppins (headings) + Inter (body/nav) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      /* Critical CSS — prevents FOUC on all devices */
+      *, *::before, *::after { box-sizing: border-box; }
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0; padding: 0;
+        background: #F9F5F2;
+        overflow-x: hidden;
+        /* iPhone notch / Dynamic Island safe areas */
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+      #root {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+      /* Custom gold scrollbar */
+      ::-webkit-scrollbar { width: 3px; }
+      ::-webkit-scrollbar-track { background: #F9F5F2; }
+      ::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 2px; }
+      /* Gold text selection */
+      ::selection { background: rgba(201,168,76,0.2); color: #1C1C1C; }
+      /* Focus ring */
+      :focus-visible { outline: 2px solid #C9A84C; outline-offset: 3px; }
+      :focus:not(:focus-visible) { outline: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

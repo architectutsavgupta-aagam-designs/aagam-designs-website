@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+/* ==============================
+   Large Screens Adjustment
+   ============================== */
+@media (min-width: 992px) {
+
+  .footer-skyline {
+    height: 520px !important;   /* fixed visual height */
+    bottom: -40px !important;   /* slightly lower reveal */
+    background-position: center 95% !important;
+  }
+
+}
