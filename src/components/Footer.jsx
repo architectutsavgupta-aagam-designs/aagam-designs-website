@@ -621,7 +621,8 @@ export default function Footer() {
                 margin: 0,
               }}
             >
-              © {year} AAGAM DESIGNS · AR. UTSAV GUPTA · ALL RIGHTS RESERVED
+              © {year} Aagam Designs. All project images are protected intellectual property.
+Unauthorized commercial use is prohibited.
             </p>
 
             <p
