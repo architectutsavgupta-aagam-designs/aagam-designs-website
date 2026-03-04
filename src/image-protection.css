@@ -1,0 +1,19 @@
+/* ============================================================
+   IMAGE PROTECTION — imported once in main.jsx
+   ============================================================ */
+
+/* All images: disable pointer events so browser never shows
+   its native "Save Image As / Open in new tab" context menu.
+   The ProtectedImage overlay div handles clicks instead. */
+img {
+  pointer-events:      none;
+  user-select:         none;
+  -webkit-user-select: none;
+  -webkit-user-drag:   none;
+  -moz-user-select:    none;
+}
+
+/* Prevent selecting / copying text across the whole site */
+* {
+  -webkit-touch-callout: none; /* iOS Safari long-press menu */
+}
