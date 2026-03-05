@@ -629,7 +629,7 @@ export default function Footer() {
                 margin: 0,
               }}
             >
-              © {year} Aagam Designs. ALL PROJECT IMAGES ARE PROTECTED
+              © {year} AAGAM DESIGNS. ALL PROJECT IMAGES ARE PROTECTED
               INTELLECTUAL PROPERTY. UNAUTHORIZED COMMERCIAL USE IS PROHIBITED.
             </p>
 
@@ -656,7 +656,7 @@ export default function Footer() {
                 margin: 0,
               }}
             >
-              Designed & Developed with{" "}
+              DESIGNED & DEVELOPED with{" "}
               <span style={{ color: "#C9A84C" }}>♥</span> by{" "}
               <a
                 href="https://mydataapplied.vercel.app/"
