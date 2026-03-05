@@ -656,8 +656,8 @@ export default function Footer() {
                 margin: 0,
               }}
             >
-              DESIGNED & DEVELOPED with{" "}
-              <span style={{ color: "#C9A84C" }}>♥</span> by{" "}
+              DESIGNED & DEVELOPED WITH{" "}
+              <span style={{ color: "#C9A84C" }}>♥</span> BY{" "}
               <a
                 href="https://mydataapplied.vercel.app/"
                 target="_blank"
