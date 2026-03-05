@@ -2,10 +2,12 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import ScrollIndicator from "./ScrollIndicator";
 
-/* BACKGROUND */
+
+
 import projectBg from "../assets/project_bg.jpg";
 
-/* THUMBNAILS */
+
+
 import proj1T from "../assets/project1.jpg";
 import proj2T from "../assets/project2.jpg";
 import proj3T from "../assets/project3.jpg";
@@ -28,7 +30,7 @@ import proj19T from "../assets/project19.jpg";
 import proj20T from "../assets/project20.jpg";
 
 
-/* ================= GALLERY IMAGES ================= */
+
 // Project 1 - The Vantage House
 import Proj1a from "../assets/project1a.jpg";
 import Proj1b from "../assets/project1b.jpg";
@@ -120,7 +122,7 @@ import Proj20e from "../assets/project20e.jpg";
 import Proj20f from "../assets/project20f.jpg";
 
 
-/* ─── PROJECTS DATA ─────────────────────────────────────────── */
+
 const PROJECTS = [
   {
     id: 1,
@@ -327,7 +329,7 @@ const PROJECTS = [
 
 const CATS = ["All", "Designing", "Renovation", "Construction", "Interior Designing"];
 
-/* ─── PROJECT CARD ──────────────────────────────────────────── */
+
 function ProjectCard({ project, onClick, index }) {
   return (
     <motion.div
@@ -400,7 +402,7 @@ function ProjectCard({ project, onClick, index }) {
   );
 }
 
-/* ─── LIGHTBOX ──────────────────────────────────────────────── */
+
 function Lightbox({ project, onClose }) {
   const [imgIndex, setImgIndex] = useState(0);
   const total = project.images.length;
@@ -415,7 +417,7 @@ function Lightbox({ project, onClose }) {
     setImgIndex(i => (i + 1) % total);
   }, [total]);
 
-  // Keyboard navigation + lock body scroll
+
   useEffect(() => {
     const handleKey = e => {
       if (e.key === "ArrowLeft")  prev();
@@ -464,17 +466,10 @@ function Lightbox({ project, onClose }) {
         }}
       >
 
-        {/* ── IMAGE AREA ─────────────────────────────────────── */}
+
         <div style={{ position: "relative", background: "#000" }}>
 
-          {/*
-            aspectRatio: "16 / 10" — wide enough for landscape architecture
-            photos, tall enough for portrait shots. On mobile (< 480px) it
-            shifts to "4 / 3" via the style tag below for a taller frame.
-            objectFit: "contain" — NEVER crops. The full image is always
-            visible regardless of orientation or screen size. Letterbox/
-            pillarbox gaps are filled by the black background (#000).
-          */}
+
           <style>{`
             .lb-img-wrap { aspect-ratio: 16 / 10; }
             @media (max-width: 480px) { .lb-img-wrap { aspect-ratio: 4 / 3; } }
@@ -497,14 +492,15 @@ function Lightbox({ project, onClose }) {
                   inset: 0,
                   width: "100%",
                   height: "100%",
-                  objectFit: "contain",     /* full image, never cropped */
+                  objectFit: "contain",
                   objectPosition: "center",
                   display: "block",
                 }}
               />
             </AnimatePresence>
 
-            {/* PREV arrow */}
+
+
             {total > 1 && (
               <button
                 onClick={prev}
@@ -528,7 +524,9 @@ function Lightbox({ project, onClose }) {
               </button>
             )}
 
-            {/* NEXT arrow */}
+
+
+
             {total > 1 && (
               <button
                 onClick={next}
@@ -552,7 +550,8 @@ function Lightbox({ project, onClose }) {
               </button>
             )}
 
-            {/* Counter badge */}
+
+
             {total > 1 && (
               <div style={{
                 position: "absolute", bottom: "10px", right: "14px",
@@ -567,7 +566,7 @@ function Lightbox({ project, onClose }) {
               </div>
             )}
 
-            {/* Dot / bar indicator strip — max 16 images */}
+
             {total > 1 && total <= 16 && (
               <div style={{
                 position: "absolute", bottom: "12px", left: "50%",
@@ -595,7 +594,7 @@ function Lightbox({ project, onClose }) {
               </div>
             )}
 
-            {/* X close — top right corner of image */}
+
             <button
               onClick={onClose}
               aria-label="Close"
@@ -621,10 +620,10 @@ function Lightbox({ project, onClose }) {
           </div>
         </div>
 
-        {/* ── DETAILS PANEL ──────────────────────────────────── */}
+
         <div style={{ padding: "clamp(18px,3.5vw,28px)", background: "#fff" }}>
 
-          {/* Categories + location */}
+
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", marginBottom: "10px" }}>
             <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
               {project.categories.map(cat => (
@@ -638,22 +637,19 @@ function Lightbox({ project, onClose }) {
             </span>
           </div>
 
-          {/* Title */}
-          <h3 style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: "clamp(1.25rem,3vw,1.9rem)", color: "#1a1a1a", margin: "0 0 4px" }}>
+
+          <h3 style={{fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: "clamp(1.25rem,3vw,1.9rem)", color: "#1a1a1a", margin: "0 0 4px" }}>
             {project.title}
           </h3>
 
-          {/* Area */}
-          <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(9px,1.1vw,10.5px)", letterSpacing: "0.15em", color: "#C9A84C", margin: "0 0 clamp(10px,1.8vh,16px)" }}>
+          <p style={{fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(9px,1.1vw,10.5px)", letterSpacing: "0.15em", color: "#C9A84C", margin: "0 0 clamp(10px,1.8vh,16px)" }}>
             {project.area}
           </p>
-
-          {/* Description */}
-          <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(12px,1.4vw,14px)", lineHeight: 1.72, color: "#555", margin: 0 }}>
+          <p style={{fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(12px,1.4vw,14px)", lineHeight: 1.72, color: "#555", margin: 0 }}>
             {project.description}
           </p>
 
-          {/* Close button */}
+
           <button
             onClick={onClose}
             style={{
@@ -675,7 +671,7 @@ function Lightbox({ project, onClose }) {
   );
 }
 
-/* ─── MAIN EXPORT ───────────────────────────────────────────── */
+
 export default function Projects() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -685,9 +681,7 @@ export default function Projects() {
   const filtered = filter === "All" ? PROJECTS : PROJECTS.filter(p => p.categories.includes(filter));
 
   return (
-    <section id="projects" style={{ background: "#FCFCFC", position: "relative", overflow: "hidden" }}>
-
-      {/* ══════════ ARCHITECTURE BACKGROUND ══════════ */}
+    <section id="projects" style={{background: "#FCFCFC", position: "relative", overflow: "hidden" }}>
       <div aria-hidden style={{
         position: "absolute", inset: 0, pointerEvents: "none",
         backgroundImage: `
@@ -741,13 +735,10 @@ export default function Projects() {
         pointerEvents: "none",
       }} />
 
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "rgba(252,251,250,0.2)" }} />
+      <div style={{position: "absolute", inset: 0, zIndex: 1, background: "rgba(252,251,250,0.2)" }} />
+      <div ref={ref} style={{position: "relative", zIndex: 2, maxWidth: "1280px", margin: "0 auto", padding: "clamp(56px,9vh,128px) clamp(20px,6vw,96px)" }}>
 
-      {/* ══════════ CONTENT ══════════ */}
-      <div ref={ref} style={{ position: "relative", zIndex: 2, maxWidth: "1280px", margin: "0 auto", padding: "clamp(56px,9vh,128px) clamp(20px,6vw,96px)" }}>
-
-        {/* Header */}
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "clamp(16px,3vh,24px)", marginBottom: "clamp(28px,5vh,52px)" }}>
+        <div style={{ display:"flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "clamp(16px,3vh,24px)", marginBottom: "clamp(28px,5vh,52px)" }}>
           <div>
             <motion.p initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.7 }}
               style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(9px,1.2vw,10px)", letterSpacing: "0.42em", color: "#C9A84C", textTransform: "uppercase", margin: "0 0 10px" }}>
@@ -761,8 +752,7 @@ export default function Projects() {
               style={{ width: "clamp(36px,4vw,48px)", height: "1px", background: "#C9A84C", transformOrigin: "left", marginTop: "clamp(12px,2vh,18px)" }} />
           </div>
 
-          {/* Filter buttons */}
-          <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.28 }}
+          <motion.div initial={{opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.28 }}
             style={{ display: "flex", gap: "clamp(5px,0.8vw,10px)", flexWrap: "wrap", alignItems: "center" }}>
             {CATS.map(cat => {
               const active = filter === cat;
@@ -789,8 +779,7 @@ export default function Projects() {
           </motion.div>
         </div>
 
-        {/* Grid */}
-        <motion.div layout style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: "clamp(16px,2.5vw,28px)" }}>
+        <motion.div layout style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: "clamp(16px,2.5vw,28px)" }}>
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} onClick={setSelected} />
@@ -798,7 +787,7 @@ export default function Projects() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Empty state */}
+
         {filtered.length === 0 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: "center", padding: "clamp(40px,8vh,80px) 0" }}>
             <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(11px,1.4vw,13px)", letterSpacing: "0.25em", color: "#bbb", textTransform: "uppercase" }}>
@@ -807,7 +796,7 @@ export default function Projects() {
           </motion.div>
         )}
 
-        {/* Footer tagline */}
+
         <motion.p initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.8 }}
           style={{ textAlign: "center", fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(8.5px,1.2vw,10px)", letterSpacing: "0.3em", color: "#bbb", marginTop: "clamp(28px,5vh,48px)", textTransform: "uppercase" }}>
           !!Next One Can Be Yours!!
@@ -816,7 +805,7 @@ export default function Projects() {
 
       <ScrollIndicator nextSection="contact" dark={false} />
 
-      {/* ══════════ LIGHTBOX ══════════ */}
+
       <AnimatePresence>
         {selected && <Lightbox project={selected} onClose={() => setSelected(null)} />}
       </AnimatePresence>

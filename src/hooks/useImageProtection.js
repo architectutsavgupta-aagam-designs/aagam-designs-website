@@ -1,20 +1,10 @@
 import { useEffect } from 'react'
 
-/**
- * useImageProtection
- * ─────────────────────────────────────────────────────────────
- * Call once at the top of App.jsx.
- * Applies global protection layers:
- *   1. Blocks right-click "Save Image As" on every <img>
- *   2. Blocks dragging images to desktop / other tabs
- *   3. Deters F12 / Ctrl+Shift+I / Ctrl+U / Ctrl+S shortcuts
- *   4. Disables text selection across the whole page
- * ─────────────────────────────────────────────────────────────
- */
+
 export default function useImageProtection() {
   useEffect(() => {
 
-    /* 1. Block right-click specifically on images */
+
     const blockContextMenu = (e) => {
       if (
         e.target.tagName === 'IMG' ||
@@ -25,7 +15,7 @@ export default function useImageProtection() {
       }
     }
 
-    /* 2. Block drag-and-drop of images */
+    
     const blockDrag = (e) => {
       if (e.target.tagName === 'IMG') {
         e.preventDefault()
@@ -33,7 +23,7 @@ export default function useImageProtection() {
       }
     }
 
-    /* 3. Deter common DevTools / save shortcuts */
+
     const blockShortcuts = (e) => {
       const ctrl = e.ctrlKey || e.metaKey
 

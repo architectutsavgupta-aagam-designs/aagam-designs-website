@@ -38,9 +38,10 @@ export default function Contact() {
         position: "relative",
       }}
     >
-      {/* ══════════ ARCHITECTURE BACKGROUND — CONCENTRIC RINGS ══════════ */}
+      
 
-      {/* Gold top-rule */}
+
+
       <div
         aria-hidden
         style={{
@@ -55,7 +56,7 @@ export default function Contact() {
         }}
       />
 
-      {/* Gold bottom-rule */}
+
       <div
         aria-hidden
         style={{
@@ -70,7 +71,7 @@ export default function Contact() {
         }}
       />
 
-      {/* ── RING 1 — Large centered topographic site-plan ── */}
+
       <svg
         aria-hidden
         viewBox="0 0 900 900"
@@ -244,7 +245,7 @@ export default function Contact() {
         ))}
       </svg>
 
-      {/* ── RING 2 — Top-right, medium, compass rose style ── */}
+
       <svg
         aria-hidden
         viewBox="0 0 400 400"
@@ -354,7 +355,7 @@ export default function Contact() {
         />
       </svg>
 
-      {/* ── RING 3 — Bottom-left, medium, survey marker style ── */}
+
       <svg
         aria-hidden
         viewBox="0 0 360 360"
@@ -456,7 +457,7 @@ export default function Contact() {
         />
       </svg>
 
-      {/* ── RING 4 — Top-left, small, detail callout style ── */}
+
       <svg
         aria-hidden
         viewBox="0 0 220 220"
@@ -531,7 +532,7 @@ export default function Contact() {
         />
       </svg>
 
-      {/* ── RING 5 — Bottom-right, small, elevation marker style ── */}
+
       <svg
         aria-hidden
         viewBox="0 0 180 180"
@@ -606,7 +607,7 @@ export default function Contact() {
         />
       </svg>
 
-      {/* ── RING 6 — Mid-left edge, tiny, section marker ── */}
+
       <svg
         aria-hidden
         viewBox="0 0 140 140"
@@ -673,7 +674,7 @@ export default function Contact() {
         />
       </svg>
 
-      {/* ── RING 7 — Mid-right edge, tiny, datum point ── */}
+
       <svg
         aria-hidden
         viewBox="0 0 140 140"
@@ -740,7 +741,7 @@ export default function Contact() {
         />
       </svg>
 
-      {/* Corner brackets — all four corners */}
+
       {[
         {
           top: "clamp(14px,2.5vh,28px)",
@@ -796,7 +797,7 @@ export default function Contact() {
         </svg>
       ))}
 
-      {/* Measurement tick rule — left edge */}
+
       <div
         aria-hidden
         style={{
@@ -811,7 +812,7 @@ export default function Contact() {
         }}
       />
 
-      {/* ══════════ END BACKGROUND ══════════ */}
+
 
       <div
         ref={ref}
@@ -839,7 +840,7 @@ export default function Contact() {
           Get In Touch
         </motion.p>
 
-        {/* Heading */}
+
         <motion.h2
           initial={{ opacity: 0, y: 22 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -858,7 +859,7 @@ export default function Contact() {
           <em style={{ fontStyle: "italic" }}>Extraordinary Together</em>
         </motion.h2>
 
-        {/* Gold divider */}
+
         <motion.div
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
@@ -872,7 +873,7 @@ export default function Contact() {
           }}
         />
 
-        {/* Two-column grid — stacks on mobile */}
+
         <div
           style={{
             display: "grid",
@@ -881,7 +882,7 @@ export default function Contact() {
             gap: "clamp(32px,6vw,64px)",
           }}
         >
-          {/* LEFT — info */}
+
           <motion.div
             variants={fadeInLeft}
             initial="hidden"
@@ -893,7 +894,7 @@ export default function Contact() {
               gap: "clamp(24px,4.5vh,40px)",
             }}
           >
-            {/* Address */}
+
             <div>
               <InfoLabel icon={<PinIcon />}>Office Address</InfoLabel>
               <p
@@ -926,7 +927,7 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* Phone */}
+
             <div>
               <InfoLabel icon={<PhoneIcon />}>Phone</InfoLabel>
               <a
@@ -976,7 +977,7 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* Social */}
+
             <div>
               <p
                 style={{
@@ -1037,7 +1038,7 @@ export default function Contact() {
             </div>
           </motion.div>
 
-          {/* RIGHT — map */}
+
           <motion.div
             variants={fadeInRight}
             initial="hidden"
@@ -1098,7 +1099,7 @@ export default function Contact() {
   );
 }
 
-/* ── Small helper components ── */
+
 function InfoLabel({ icon, children }) {
   return (
     <p

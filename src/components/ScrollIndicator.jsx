@@ -1,22 +1,12 @@
 import { motion } from 'framer-motion'
 
-/*
-  ScrollIndicator
-  ───────────────
-  Props:
-    nextSection  — id of the section to scroll to
-    dark         — true on dark backgrounds (hero, services)
-    hero         — true ONLY inside the Hero section.
-                   Switches to position:absolute so it pins
-                   to the bottom of the hero viewport without
-                   adding height or being clipped by overflow:hidden.
-*/
+
 function ScrollIndicator({ nextSection, dark = false, hero = false }) {
   const chevronClr = dark ? 'rgba(255,255,255,0.50)' : 'rgba(26,26,26,0.32)'
   const lineClr    = dark ? 'rgba(255,255,255,0.18)' : 'rgba(26,26,26,0.12)'
   const labelClr   = dark ? 'rgba(255,255,255,0.38)' : 'rgba(26,26,26,0.28)'
 
-  /* ── Indicator inner content — shared between both modes ── */
+
   const inner = (
     <div
       className="scroll-indicator"
@@ -27,7 +17,7 @@ function ScrollIndicator({ nextSection, dark = false, hero = false }) {
         cursor: 'pointer', userSelect: 'none',
       }}
     >
-      {/* Flowing gold line */}
+
       <div style={{
         width: '1px', height: 'clamp(28px,4vh,40px)',
         background: lineClr, position: 'relative', overflow: 'hidden',
@@ -42,7 +32,7 @@ function ScrollIndicator({ nextSection, dark = false, hero = false }) {
         />
       </div>
 
-      {/* Bouncing chevron */}
+
       <motion.div
         animate={{ y: [0, 5, 0] }}
         transition={{ duration: 1.7, repeat: Infinity, ease: 'easeInOut' }}
@@ -53,7 +43,7 @@ function ScrollIndicator({ nextSection, dark = false, hero = false }) {
         </svg>
       </motion.div>
 
-      {/* Label */}
+
       <motion.span
         animate={{ opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 2.5, repeat: Infinity }}
@@ -68,10 +58,7 @@ function ScrollIndicator({ nextSection, dark = false, hero = false }) {
     </div>
   )
 
-  /* ── HERO mode: absolutely positioned inside the hero section ──
-     Sits above the slide dots (bottom ~90px) so nothing overlaps.
-     Uses animate (not whileInView) because the hero is always
-     in view on page load — whileInView would never fire here.    */
+
   if (hero) {
     return (
       <motion.div
@@ -80,10 +67,10 @@ function ScrollIndicator({ nextSection, dark = false, hero = false }) {
         transition={{ duration: 0.9, delay: 1.8, ease: 'easeOut' }}
         style={{
           position: 'absolute',
-          /* sits between the slide dots and the hero content */
-          bottom: 'clamp(68px, 10vh, 88px)',
+          bottom:'clamp(68px, 10vh, 88px)',
           left: 0, right: 0,
-          display: 'flex', justifyContent: 'center',
+          display: 'flex', 
+          justifyContent: 'center',
           zIndex: 11,
           pointerEvents: 'auto',
         }}
@@ -93,7 +80,7 @@ function ScrollIndicator({ nextSection, dark = false, hero = false }) {
     )
   }
 
-  /* ── ALL OTHER SECTIONS: normal in-flow, triggered by whileInView ── */
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}

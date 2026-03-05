@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import ScrollIndicator from './ScrollIndicator'
 
-/* ── Service data ── */
+
 const SERVICES = [
   {
     num: '01',
@@ -81,7 +81,7 @@ const SERVICES = [
   },
 ]
 
-/* ── Desktop card ── */
+
 function ServiceCard({ svc, index, inView }) {
   const [hovered, setHovered] = useState(false)
 
@@ -107,7 +107,7 @@ function ServiceCard({ svc, index, inView }) {
         gap: 'clamp(14px,2vh,20px)',
       }}
     >
-      {/* Left-edge glow on hover */}
+
       <motion.div
         animate={{ scaleY: hovered ? 1 : 0 }}
         transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
@@ -120,7 +120,7 @@ function ServiceCard({ svc, index, inView }) {
         }}
       />
 
-      {/* Top row: large number + icon */}
+
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px' }}>
         <motion.span
           animate={{ color: hovered ? '#C9A84C' : 'rgba(201,168,76,0.20)' }}
@@ -153,7 +153,7 @@ function ServiceCard({ svc, index, inView }) {
         </motion.div>
       </div>
 
-      {/* Gold rule */}
+
       <motion.div
         initial={{ scaleX: 0 }}
         animate={inView ? { scaleX: 1 } : {}}
@@ -166,7 +166,7 @@ function ServiceCard({ svc, index, inView }) {
         }}
       />
 
-      {/* Title */}
+
       <h3 style={{
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 400,
@@ -178,7 +178,7 @@ function ServiceCard({ svc, index, inView }) {
         {svc.title}
       </h3>
 
-      {/* Description */}
+
       <p style={{
         fontFamily: 'Poppins, sans-serif',
         fontWeight: 300,
@@ -191,7 +191,7 @@ function ServiceCard({ svc, index, inView }) {
         {svc.desc}
       </p>
 
-      {/* Hover — arrow CTA */}
+
       <motion.div
         animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : -10 }}
         transition={{ duration: 0.28 }}
@@ -205,14 +205,13 @@ function ServiceCard({ svc, index, inView }) {
           textTransform: 'uppercase',
         }}
       >
-        <span style={{ width: '18px', height: '1px', background: '#C9A84C', display: 'inline-block', flexShrink: 0 }} />
-        {/* Explore */}
+        <span style={{width: '18px', height: '1px', background: '#C9A84C', display: 'inline-block', flexShrink: 0 }} />
       </motion.div>
     </motion.div>
   )
 }
 
-/* ── Mobile accordion card ── */
+
 function ServiceCardMobile({ svc, index, inView }) {
   const [open, setOpen] = useState(false)
 
@@ -228,8 +227,8 @@ function ServiceCardMobile({ svc, index, inView }) {
         cursor: 'pointer',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-        {/* Number */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>\
+
         <span style={{
           fontFamily: 'Poppins, sans-serif', fontWeight: 200,
           fontSize: 'clamp(24px,6vw,36px)', lineHeight: 1,
@@ -240,10 +239,7 @@ function ServiceCardMobile({ svc, index, inView }) {
           {svc.num}
         </span>
 
-        {/* Vertical divider */}
-        <span style={{ width: '1px', height: '28px', background: 'rgba(201,168,76,0.18)', flexShrink: 0 }} />
-
-        {/* Title */}
+        <span style={{width: '1px', height: '28px', background: 'rgba(201,168,76,0.18)', flexShrink: 0 }} />
         <h3 style={{
           fontFamily: 'Poppins, sans-serif', fontWeight: 400,
           fontSize: 'clamp(0.95rem,4.5vw,1.15rem)',
@@ -254,7 +250,7 @@ function ServiceCardMobile({ svc, index, inView }) {
           {svc.title}
         </h3>
 
-        {/* Icon */}
+
         <div style={{
           width: '22px', height: '22px',
           color: open ? '#C9A84C' : 'rgba(255,255,255,0.25)',
@@ -263,7 +259,7 @@ function ServiceCardMobile({ svc, index, inView }) {
           {svc.icon}
         </div>
 
-        {/* Chevron */}
+
         <motion.div
           animate={{ rotate: open ? 180 : 0 }}
           transition={{ duration: 0.26 }}
@@ -278,15 +274,15 @@ function ServiceCardMobile({ svc, index, inView }) {
         </motion.div>
       </div>
 
-      {/* Expandable description */}
+
       <motion.div
         initial={false}
         animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
         transition={{ duration: 0.33, ease: [0.22, 1, 0.36, 1] }}
         style={{ overflow: 'hidden' }}
       >
-        <div style={{ paddingLeft: '66px', paddingTop: 'clamp(8px,1.5vh,12px)' }}>
-          {/* mini gold rule */}
+
+        <div style={{paddingLeft: '66px', paddingTop: 'clamp(8px,1.5vh,12px)' }}>
           <div style={{ width: '20px', height: '1px', background: '#C9A84C', marginBottom: '10px', opacity: 0.6 }} />
           <p style={{
             fontFamily: 'Poppins, sans-serif', fontWeight: 300,
@@ -301,7 +297,7 @@ function ServiceCardMobile({ svc, index, inView }) {
   )
 }
 
-/* ── Main export ── */
+
 export default function Services() {
   const ref    = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
@@ -315,14 +311,14 @@ export default function Services() {
         position: 'relative', overflow: 'hidden',
       }}
     >
-      {/* ── Existing blueprint grid ── */}
+
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none', opacity: 0.045,
         backgroundImage: 'linear-gradient(rgba(201,168,76,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.6) 1px, transparent 1px)',
         backgroundSize: 'clamp(40px,5vw,60px) clamp(40px,5vw,60px)',
       }} />
 
-      {/* ── Concentric ring accent — top right ── */}
+
       <svg aria-hidden viewBox="0 0 400 400"
         style={{ position:'absolute', top:'-10%', right:'-6%', width:'clamp(180px,28vw,360px)', height:'clamp(180px,28vw,360px)', opacity:0.045, pointerEvents:'none' }}>
         {[180,140,100,60,28].map((r,i) => (
@@ -332,7 +328,7 @@ export default function Services() {
         <line x1="200" y1="20" x2="200" y2="380" stroke="#C9A84C" strokeWidth="0.4"/>
       </svg>
 
-      {/* ── Concentric ring accent — bottom left ── */}
+
       <svg aria-hidden viewBox="0 0 300 300"
         style={{ position:'absolute', bottom:'-8%', left:'-5%', width:'clamp(130px,20vw,260px)', height:'clamp(130px,20vw,260px)', opacity:0.045, pointerEvents:'none' }}>
         {[135,100,68,38].map((r,i) => (
@@ -342,14 +338,14 @@ export default function Services() {
         <line x1="150" y1="15" x2="150" y2="285" stroke="#C9A84C" strokeWidth="0.35"/>
       </svg>
 
-      {/* Gold top-rule */}
+
       <div aria-hidden style={{
         position:'absolute', top:0, left:0, right:0, height:'2px',
         background:'linear-gradient(90deg,transparent,rgba(201,168,76,0.35) 25%,rgba(201,168,76,0.35) 75%,transparent)',
         pointerEvents:'none',
       }} />
 
-      {/* ── Responsive styles ── */}
+
       <style>{`
         .svc-desktop { display: flex; }
         .svc-mobile  { display: none; }
@@ -359,9 +355,7 @@ export default function Services() {
         }
       `}</style>
 
-      <div ref={ref} style={{ maxWidth:'1400px', margin:'0 auto', position:'relative', zIndex:1 }}>
-
-        {/* ── Section header ── */}
+      <div ref={ref} style={{maxWidth:'1400px', margin:'0 auto', position:'relative', zIndex:1 }}>
         <div style={{ textAlign:'center', marginBottom:'clamp(40px,7vh,72px)' }}>
           <motion.p
             initial={{ opacity:0 }} animate={inView ? { opacity:1 } : {}}
@@ -397,7 +391,7 @@ export default function Services() {
           />
         </div>
 
-        {/* ── DESKTOP: 5-column horizontal strip ── */}
+
         <motion.div
           className="svc-desktop"
           initial={{ opacity:0 }} animate={inView ? { opacity:1 } : {}}
@@ -407,7 +401,7 @@ export default function Services() {
             border:'1px solid rgba(201,168,76,0.14)',
           }}
         >
-          {/* Corner bracket accents on the strip */}
+
           {[
             { top:-1, left:-1, borderTop:'1px solid #C9A84C', borderLeft:'1px solid #C9A84C' },
             { top:-1, right:-1, borderTop:'1px solid #C9A84C', borderRight:'1px solid #C9A84C' },
@@ -422,14 +416,14 @@ export default function Services() {
           ))}
         </motion.div>
 
-        {/* ── MOBILE: accordion stack ── */}
+
         <div className="svc-mobile" style={{ borderTop:'1px solid rgba(201,168,76,0.12)' }}>
           {SERVICES.map((svc, i) => (
             <ServiceCardMobile key={svc.num} svc={svc} index={i} inView={inView} />
           ))}
         </div>
 
-        {/* Bottom tagline */}
+
         <motion.p
           initial={{ opacity:0 }} animate={inView ? { opacity:1 } : {}}
           transition={{ duration:0.8, delay:0.9 }}

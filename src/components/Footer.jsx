@@ -2,7 +2,7 @@ import { SITE_META } from "../constants/index";
 import kanpurBg from "../assets/kanpur_dark_footer.png";
 import { color } from "framer-motion";
 
-/* ── Social icons ──────────────────────────────────────────── */
+
 const SOCIALS = [
   {
     name: "Instagram",
@@ -85,9 +85,7 @@ const SERVICES_LIST = [
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-/* ══════════════════════════════════════════════════════════════
-   FOOTER COMPONENT
-══════════════════════════════════════════════════════════════ */
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -99,7 +97,7 @@ export default function Footer() {
         overflow: "hidden",
       }}
     >
-      {/* Skyline Image — professional responsive method */}
+
       <img
         src={kanpurBg}
         alt="Kanpur Skyline"
@@ -110,14 +108,15 @@ export default function Footer() {
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          objectPosition: "center 37%", // adjust crop here
+          objectPosition: "center 37%",
           pointerEvents: "none",
           zIndex: 0,
           filter: "brightness(0.78) contrast(1.08)",
         }}
       />
 
-      {/* Soft vignette for luxury depth */}
+
+
       <div
         style={{
           position: "absolute",
@@ -133,7 +132,9 @@ export default function Footer() {
         }}
       />
 
-      {/* Dark gradient fade — blends photo into the dark footer body above */}
+
+
+
       <div
         style={{
           position: "absolute",
@@ -148,9 +149,13 @@ export default function Footer() {
         }}
       />
 
-      {/* Gold SVG skyline overlay removed — photo only */}
 
-      {/* Subtle blueprint grid */}
+
+
+
+
+
+
       <div
         style={{
           position: "absolute",
@@ -164,7 +169,8 @@ export default function Footer() {
         }}
       />
 
-      {/* Top border */}
+
+
       <div
         style={{
           position: "absolute",
@@ -178,7 +184,8 @@ export default function Footer() {
         }}
       />
 
-      {/* ── MAIN CONTENT ─────────────────────────────────────── */}
+
+
       <div style={{ position: "relative", zIndex: 5 }}>
         <div
           style={{
@@ -187,7 +194,8 @@ export default function Footer() {
             padding: "clamp(48px,7vh,80px) clamp(24px,6vw,80px) 0",
           }}
         >
-          {/* Four-column grid */}
+
+
           <div
             style={{
               display: "grid",
@@ -197,7 +205,7 @@ export default function Footer() {
               paddingBottom: "clamp(40px,6vh,64px)",
             }}
           >
-            {/* ── COL 1: BRAND ─────────────────────────────── */}
+
             <div
               style={{ display: "flex", flexDirection: "column", gap: "18px" }}
             >
@@ -248,7 +256,7 @@ export default function Footer() {
                 Designing spaces with clarity and purpose from concept to
                 completion, across North India and beyond.
               </p>
-              {/* Social icons */}
+
               <div
                 style={{
                   display: "flex",
@@ -296,7 +304,7 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* ── COL 2: QUICK LINKS ───────────────────────── */}
+
             <div>
               <p
                 style={{
@@ -356,7 +364,8 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* ── COL 3: OUR SERVICES ──────────────────────── */}
+
+
             <div>
               <p
                 style={{
@@ -416,13 +425,13 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* ── COL 4: CONTACT INFO ──────────────────────── */}
+
             <div>
               <div
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: "clamp(18px,3vh,26px)", // single master spacing
+                  gap: "clamp(18px,3vh,26px)",
                 }}
               >
                 <p
@@ -433,7 +442,7 @@ export default function Footer() {
                     letterSpacing: "0.32em",
                     color: "#C9A84C",
                     textTransform: "uppercase",
-                    margin: 0, // removed margin — spacing controlled by parent
+                    margin: 0,
                   }}
                 >
                   Contact Info
@@ -443,14 +452,14 @@ export default function Footer() {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: "clamp(10px,1.6vh,14px)", // tighter spacing
+                    gap: "clamp(10px,1.6vh,14px)",
                   }}
                 >
-                  {/* Address */}
+
                   <div
                     style={{
                       display: "flex",
-                      gap: "11px",
+                      gap: "10px",
                       alignItems: "flex-start",
                     }}
                   >
@@ -466,7 +475,7 @@ export default function Footer() {
                         height: 15,
                         flexShrink: 0,
                         opacity: 0.65,
-                        marginTop: "1.8px",
+                        marginTop: "1.9px",
                       }}
                     >
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
@@ -487,7 +496,7 @@ export default function Footer() {
                     </p>
                   </div>
 
-                  {/* Phones */}
+
                   <div
                     style={{
                       display: "flex",
@@ -506,8 +515,7 @@ export default function Footer() {
                         width: 15,
                         height: 15,
                         flexShrink: 0,
-                        opacity: 0.65,
-                        // marginTop: "0px",
+                        opacity:0.65,
                       }}
                     >
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -535,7 +543,7 @@ export default function Footer() {
                     </a>
                   </div>
 
-                  {/* Gmail */}
+
                   <div
                     style={{
                       display: "flex",
@@ -590,7 +598,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Divider */}
+
           <div
             style={{
               height: "1px",
@@ -599,7 +607,7 @@ export default function Footer() {
             }}
           />
 
-          {/* Bottom bar — leaves room for skyline SVG */}
+
           <div
             style={{
               display: "grid",
@@ -621,8 +629,8 @@ export default function Footer() {
                 margin: 0,
               }}
             >
-              © {year} Aagam Designs. All project images are protected intellectual property.
-Unauthorized commercial use is prohibited.
+              © {year} Aagam Designs. All project images are protected
+              intellectual property. Unauthorized commercial use is prohibited.
             </p>
 
             <p

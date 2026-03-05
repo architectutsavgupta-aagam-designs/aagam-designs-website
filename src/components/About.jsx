@@ -24,18 +24,14 @@ export default function About() {
     <section
       id="about"
       style={{
-        background: '#FCFCFC',
-        /*
-          Vertical padding:  56px (phone) → 128px (desktop) → 160px (4K)
-          Horizontal padding: 20px (phone) →  96px (desktop) → 160px (4K)
-        */
+        background:'#FCFCFC',
         padding: 'clamp(56px,9vh,160px) clamp(20px,6vw,160px)',
         overflow: 'hidden',
         position: 'relative',
       }}
     >
 
-      {/* ── Per-breakpoint tweaks ─────────────────────────────── */}
+
       <style>{`
         /* Tiny phones — stat numbers would overflow at default size */
         @media (max-width: 360px) {
@@ -79,9 +75,12 @@ export default function About() {
         }
       `}</style>
 
-      {/* ══════════ ARCHITECTURE BACKGROUND ══════════ */}
 
-      {/* Blueprint grid */}
+
+
+
+
+
       <div aria-hidden style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
         backgroundImage: `
@@ -91,14 +90,14 @@ export default function About() {
         backgroundSize: 'clamp(36px,5vw,56px) clamp(36px,5vw,56px)',
       }} />
 
-      {/* Gold top-rule */}
+
       <div aria-hidden style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
         background: 'linear-gradient(90deg,transparent,rgba(201,168,76,0.40) 25%,rgba(201,168,76,0.40) 75%,transparent)',
         pointerEvents: 'none',
       }} />
 
-      {/* Large compass — top right */}
+
       <svg aria-hidden viewBox="0 0 500 500"
         style={{
           position: 'absolute', top: '-8%', right: '-5%',
@@ -116,7 +115,7 @@ export default function About() {
         <circle cx="250" cy="250" r="5" fill="#8B6914" opacity="0.5"/>
       </svg>
 
-      {/* Diagonal drafting lines — bottom left */}
+
       <svg aria-hidden viewBox="0 0 260 260"
         style={{
           position: 'absolute', bottom: '4%', left: 0,
@@ -129,7 +128,7 @@ export default function About() {
         <line x1="0" y1="110" x2="110" y2="0"   stroke="#8B6914" strokeWidth="0.3"/>
       </svg>
 
-      {/* Corner brackets */}
+
       {[
         { top:    'clamp(14px,2.5vh,28px)', left:  'clamp(12px,2.5vw,36px)', rotate: '0deg'   },
         { top:    'clamp(14px,2.5vh,28px)', right: 'clamp(12px,2.5vw,36px)', rotate: '90deg'  },
@@ -143,7 +142,7 @@ export default function About() {
         </svg>
       ))}
 
-      {/* Measurement tick rule — right edge */}
+
       <div aria-hidden style={{
         position: 'absolute', right: 'clamp(6px,1.5vw,18px)', top: '15%', bottom: '15%',
         width: '1px',
@@ -151,14 +150,14 @@ export default function About() {
         pointerEvents: 'none',
       }} />
 
-      {/* ══════════ CONTENT ══════════ */}
+
       <div
         ref={ref}
         className="ab-inner"
         style={{ maxWidth: '1280px', margin: '0 auto', position: 'relative', zIndex: 1 }}
       >
 
-        {/* Label */}
+
         <motion.p
           variants={fadeInUp} initial="hidden" animate={inView ? 'visible' : 'hidden'}
           style={{
@@ -170,7 +169,7 @@ export default function About() {
           About Us
         </motion.p>
 
-        {/* Heading */}
+
         <motion.h2
           className="ab-heading"
           variants={fadeInUp} initial="hidden" animate={inView ? 'visible' : 'hidden'}
@@ -180,8 +179,7 @@ export default function About() {
             fontSize: 'clamp(1.7rem,4.2vw,3.3rem)',
             color: '#1a1a1a', lineHeight: 1.18,
             margin: 0,
-            /* Prevent overflow on narrow screens */
-            overflowWrap: 'break-word',
+            overflowWrap:'break-word',
             wordBreak: 'break-word',
           }}
         >
@@ -189,7 +187,7 @@ export default function About() {
           <em style={{ fontStyle: 'italic' }}>Tell Powerful Stories</em>
         </motion.h2>
 
-        {/* Gold divider */}
+
         <motion.div
           className="ab-divider"
           initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}}
@@ -201,12 +199,7 @@ export default function About() {
           }}
         />
 
-        {/* ── Two-column grid ────────────────────────────────── */}
-        {/*
-          auto-fit minmax(min(100%, 320px), 1fr):
-          • 1 column on screens narrower than ~640px (phones, small tablets)
-          • 2 columns on everything wider (laptops → 4K TVs)
-        */}
+        
         <div
           className="ab-two-col"
           style={{
@@ -217,7 +210,7 @@ export default function About() {
           }}
         >
 
-          {/* ── LEFT: body text + stats ── */}
+
           <motion.div
             variants={fadeInLeft} initial="hidden" animate={inView ? 'visible' : 'hidden'}
             transition={{ delay: 0.2 }}
@@ -252,7 +245,7 @@ export default function About() {
               thoughtful design, technical precision and on-ground execution.
             </p>
 
-            {/* Stats row — always 3 columns, numbers scale with clamp */}
+
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3,1fr)',
@@ -297,7 +290,7 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* ── RIGHT: approach card ── */}
+
           <motion.div
             variants={fadeInRight} initial="hidden" animate={inView ? 'visible' : 'hidden'}
             transition={{ delay: 0.32 }}
@@ -313,7 +306,7 @@ export default function About() {
               }}
             >
 
-              {/* Blueprint corner accents */}
+
               {[
                 { top: -1,    left: -1,    borderTop:    '2px solid #C9A84C', borderLeft:   '2px solid #C9A84C' },
                 { top: -1,    right: -1,   borderTop:    '2px solid #C9A84C', borderRight:  '2px solid #C9A84C' },
@@ -323,7 +316,7 @@ export default function About() {
                 <span key={i} style={{ position: 'absolute', width: 14, height: 14, ...s }} />
               ))}
 
-              {/* Card label */}
+
               <p style={{
                 fontFamily: 'Poppins, sans-serif', fontWeight: 500,
                 fontSize: 'clamp(9px,1.2vw,10px)', letterSpacing: '0.36em',
@@ -333,7 +326,7 @@ export default function About() {
                 Our Approach
               </p>
 
-              {/* Card heading */}
+
               <h3 style={{
                 fontFamily: 'Poppins, sans-serif', fontWeight: 400,
                 fontSize: 'clamp(1.15rem,2vw,1.75rem)',
@@ -342,7 +335,7 @@ export default function About() {
                 How We Work
               </h3>
 
-              {/* Card description */}
+
               <p
                 className="ab-card-desc"
                 style={{
@@ -355,7 +348,7 @@ export default function About() {
                 transformation, we focus on:
               </p>
 
-              {/* Approach list */}
+
               <ul style={{
                 margin: 0, padding: 0, listStyle: 'none',
                 display: 'flex', flexDirection: 'column',
@@ -369,7 +362,7 @@ export default function About() {
                     transition={{ delay: 0.52 + i * 0.1 }}
                     style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}
                   >
-                    {/* Gold bullet */}
+
                     <span style={{
                       width: '6px', height: '6px', borderRadius: '50%',
                       background: '#C9A84C', flexShrink: 0, marginTop: '6px',
@@ -388,7 +381,7 @@ export default function About() {
                 ))}
               </ul>
 
-              {/* Quote */}
+
               <div style={{
                 marginTop:  'clamp(16px,3.5vh,28px)',
                 paddingTop: 'clamp(12px,2.5vh,22px)',
