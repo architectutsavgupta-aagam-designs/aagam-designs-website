@@ -1,29 +1,24 @@
 import { useEffect } from 'react'
 
 
+
 export default function useImageProtection() {
   useEffect(() => {
 
-
+    
     const blockContextMenu = (e) => {
-      if (
-        e.target.tagName === 'IMG' ||
-        e.target.closest('[data-protected]')
-      ) {
-        e.preventDefault()
-        return false
-      }
+      e.preventDefault()
+      return false
     }
 
-    
     const blockDrag = (e) => {
       if (e.target.tagName === 'IMG') {
         e.preventDefault()
         return false
       }
     }
-
-
+    
+    
     const blockShortcuts = (e) => {
       const ctrl = e.ctrlKey || e.metaKey
 
@@ -33,6 +28,8 @@ export default function useImageProtection() {
       if (ctrl && e.shiftKey && e.key === 'C')      { e.preventDefault(); return false }
       if (ctrl && e.key.toLowerCase() === 'u')      { e.preventDefault(); return false }
       if (ctrl && e.key.toLowerCase() === 's')      { e.preventDefault(); return false }
+      if (ctrl && e.key.toLowerCase() === 'p')      { e.preventDefault(); return false }
+      if (ctrl && e.key.toLowerCase() === 'a')      { e.preventDefault(); return false }
     }
 
     document.addEventListener('contextmenu', blockContextMenu)

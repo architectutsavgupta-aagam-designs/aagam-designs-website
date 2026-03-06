@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   motion,
   AnimatePresence,
@@ -33,6 +33,7 @@ import hero9fb  from "../assets/hero9.jpg";
 import hero10fb from "../assets/hero10.jpg";
 
 
+
 const SLIDES = [
   { srcset: hero1srcset,  fallback: hero1fb,  pos: "center 35%"    },
   { srcset: hero2srcset,  fallback: hero2fb,  pos: "center 40%"    },
@@ -55,7 +56,7 @@ export default function Hero() {
   const opacityFade = useTransform(scrollY, [0, 500], [1, 0.9]);
   const contentY    = useTransform(scrollY, [0, 600], [0, -40]);
 
-
+  
   useEffect(() => {
     const interval = setInterval(
       () => setCurrent((c) => (c + 1) % SLIDES.length),
@@ -64,7 +65,69 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+ 
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (window.scrollY > window.innerHeight * 0.6) return;
+      if (e.key === 'ArrowLeft')
+        setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length);
+      if (e.key === 'ArrowRight')
+        setCurrent((c) => (c + 1) % SLIDES.length);
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, []);
+
+
+  const wheelCooldown = useRef(false);
+
+  const handleWheel = (e) => {
+    if (window.scrollY > window.innerHeight * 0.6) return;
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    if (Math.abs(e.deltaX) < 10) return;
+    if (wheelCooldown.current) return;
+    wheelCooldown.current = true;
+    setTimeout(() => { wheelCooldown.current = false; }, 700);
+    if (e.deltaX > 0) setCurrent((c) => (c + 1) % SLIDES.length);
+    else              setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length);
+  };
+
+
+
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches ? e.touches[0].clientX : e.clientX;
+    touchStartY.current = e.touches ? e.touches[0].clientY : e.clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+
+    const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+    const dx = endX - touchStartX.current;
+    const dy = endY - touchStartY.current;
+
+    /* Only treat as horizontal swipe if horizontal distance is
+       greater than vertical (prevents conflict with page scroll) */
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      if (dx < 0) {
+        /* Swipe LEFT → next slide */
+        setCurrent((c) => (c + 1) % SLIDES.length);
+      } else {
+        /* Swipe RIGHT → previous slide */
+        setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length);
+      }
+    }
+
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   const slide = SLIDES[current];
+
 
   return (
     <div id="home">
@@ -94,6 +157,10 @@ export default function Hero() {
       `}</style>
 
       <section
+        
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onWheel={handleWheel}
         style={{
           position:  "relative",
           width:     "100%",
@@ -103,7 +170,7 @@ export default function Hero() {
         }}
       >
 
-
+        
         <AnimatePresence mode="sync">
           <motion.div
             key={current}
@@ -118,30 +185,24 @@ export default function Hero() {
               background: "#111",
             }}
           >
-            
+
             <picture style={{ width: "100%", height: "100%", display: "block" }}>
-
-              <source
-                srcSet={slide.srcset}
-                type="image/webp"
-                sizes="100vw"
-              />
-
+              <source srcSet={slide.srcset} type="image/webp" sizes="100vw" />
               <img
                 src={slide.fallback}
                 alt={`Hero slide ${current + 1}`}
                 style={{
-                  width:  "100%",
-                  height: "100%",
-                  display: "block",
-                  objectFit: "cover",
+                  width:          "100%",
+                  height:         "100%",
+                  display:        "block",
+                  objectFit:      "cover",
                   objectPosition: slide.pos,
                   willChange:     "opacity, transform",
                 }}
               />
             </picture>
 
-
+            
             <div
               style={{
                 position:   "absolute",
@@ -157,17 +218,13 @@ export default function Hero() {
           </motion.div>
         </AnimatePresence>
 
-
+        
         <div
           aria-hidden
           style={{
-            position: "absolute",
-            inset: 0,
-            pointerEvents: "none",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            opacity: 0.18,
-            zIndex: 2,
+            position: "absolute", inset: 0, pointerEvents: "none",
+            display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
+            opacity: 0.18, zIndex: 2,
           }}
         >
           <div style={{ borderRight: "1px solid rgba(255,255,255,0.15)" }} />
@@ -175,16 +232,11 @@ export default function Hero() {
           <div />
         </div>
 
-
+        {/* Horizontal axis */}
         <div
           style={{
-            position:      "absolute",
-            top:           "50%",
-            width:         "100%",
-            height:        "1px",
-            background:    "rgba(255,255,255,0.08)",
-            pointerEvents: "none",
-            zIndex:         2,
+            position: "absolute", top: "50%", width: "100%", height: "1px",
+            background: "rgba(255,255,255,0.08)", pointerEvents: "none", zIndex: 2,
           }}
         />
 
@@ -192,100 +244,78 @@ export default function Hero() {
         <motion.div
           className="hero-content"
           style={{
-            opacity:        opacityFade,
-            y:              contentY,
-            position:       "absolute",
-            inset:           0,
-            zIndex:          10,
-            display:        "flex",
-            alignItems:     "center",
-            justifyContent: "center",
-            textAlign:      "center",
-            paddingBottom:  "clamp(60px,10vh,90px)",
-            paddingTop:     "clamp(60px,8vh,80px)",
-            pointerEvents:  "none",
-            boxSizing:      "border-box",
+            opacity: opacityFade, y: contentY,
+            position: "absolute", inset: 0, zIndex: 10,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            textAlign: "center",
+            paddingBottom: "clamp(60px,10vh,90px)",
+            paddingTop:    "clamp(60px,8vh,80px)",
+            pointerEvents: "none", boxSizing: "border-box",
           }}
         >
 
           <div
             className="hero-inner"
             style={{
-              maxWidth:      "760px",
-              width:         "clamp(260px,88vw,760px)",
-              pointerEvents: "auto",
-              padding:       "0 clamp(16px,5vw,0px)",
+              maxWidth: "760px", width: "clamp(260px,88vw,760px)",
+              pointerEvents: "auto", padding: "0 clamp(16px,5vw,0px)",
             }}
           >
-
+            
             <motion.p
               className="hero-eyebrow"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3 }}
               style={{
-                fontFamily:    "Poppins, sans-serif",
-                fontSize:      "clamp(7.5px,1.8vw,11px)",
+                fontFamily: "Poppins, sans-serif",
+                fontSize: "clamp(7.5px,1.8vw,11px)",
                 letterSpacing: "clamp(0.16em,0.4vw,0.48em)",
-                color:         "#C9A84C",
-                textTransform: "uppercase",
-                margin:         0,
+                color: "#C9A84C", textTransform: "uppercase", margin: 0,
               }}
             >
               Architecture · Interior · Construction
             </motion.p>
 
-
+            
             <motion.div
               className="hero-divider"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
+              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 1 }}
               style={{
-                width:      "clamp(40px,10vw,100px)",
-                height:     "1px",
-                margin:     "clamp(10px,3vh,30px) auto",
+                width: "clamp(40px,10vw,100px)", height: "1px",
+                margin: "clamp(10px,3vh,30px) auto",
                 background: "linear-gradient(90deg,transparent,#C9A84C,transparent)",
               }}
             />
 
-
+            
             <motion.p
               className="hero-estd"
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 0.8, y: 0 }}
+              initial={{ opacity: 0, y: 18 }} animate={{ opacity: 0.8, y: 0 }}
               transition={{ duration: 1.1, delay: 0.5 }}
               style={{
-                fontFamily:    "Poppins, sans-serif",
-                fontSize:      "clamp(7px,1.6vw,9px)",
+                fontFamily: "Poppins, sans-serif",
+                fontSize: "clamp(7px,1.6vw,9px)",
                 letterSpacing: "clamp(0.14em,0.4vw,0.48em)",
-                color:         "#ffffff",
-                marginTop:     "4px",
-                marginBottom:  "clamp(12px,3vh,25px)",
-                textTransform: "uppercase",
+                color: "#ffffff", marginTop: "4px",
+                marginBottom: "clamp(12px,3vh,25px)", textTransform: "uppercase",
               }}
             >
               |&nbsp;&nbsp;Estd. 2020&nbsp;&nbsp;|
             </motion.p>
 
-
+            
             <motion.h1
               className="hero-h1"
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 0.85, y: 0 }}
+              initial={{ opacity: 0, y: 18 }} animate={{ opacity: 0.85, y: 0 }}
               transition={{ duration: 1.1, delay: 0.5 }}
               style={{
-                fontFamily:    "Inter, sans-serif",
-                fontWeight:     400,
-                fontSize:      "clamp(1.05rem,5.5vw,2.7rem)",
-                marginTop:     "clamp(4px,1.5vh,10px)",
-                marginBottom:   "0px",
-                color:         "#fff",
-                lineHeight:     1.55,
+                fontFamily: "Inter, sans-serif", fontWeight: 400,
+                fontSize: "clamp(1.05rem,5.5vw,2.7rem)",
+                marginTop: "clamp(4px,1.5vh,10px)", marginBottom: "0px",
+                color: "#fff", lineHeight: 1.55,
                 letterSpacing: "clamp(0.04em,2.5vw,0.35em)",
-                opacity:        0.5,
-                overflowWrap:  "break-word",
-                wordBreak:     "break-word",
+                opacity: 0.5, overflowWrap: "break-word", wordBreak: "break-word",
               }}
             >
               ARCHITECTURE
@@ -295,46 +325,35 @@ export default function Hero() {
               INTENT
             </motion.h1>
 
-
+            
             <motion.div
               className="hero-divider"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
+              initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 1 }}
               style={{
-                width:      "clamp(40px,10vw,100px)",
-                height:     "1px",
-                margin:     "clamp(8px,2.5vh,19px) auto",
+                width: "clamp(40px,10vw,100px)", height: "1px",
+                margin: "clamp(8px,2.5vh,19px) auto",
                 background: "linear-gradient(90deg,transparent,#C9A84C,transparent)",
               }}
             />
-
-
+            
             <motion.button
               className="hero-cta"
-              initial={{ opacity: 0, y: 1 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 1 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
               whileHover={{ scale: 1.05, backgroundColor: "#fff", color: "#111" }}
               onClick={() =>
-                document
-                  .getElementById("projects")
-                  ?.scrollIntoView({ behavior: "smooth" })
+                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
               }
               style={{
                 marginTop: "clamp(10px,2.5vh,20px)",
                 padding: "clamp(9px,1.8vh,13px) clamp(16px,4vw,34px)",
                 border: "1px solid rgba(255,255,255,0.8)",
-                background: "transparent",
-                color: "#fff",
-                cursor: "pointer",
+                background: "transparent", color: "#fff", cursor: "pointer",
                 letterSpacing: "clamp(0.1em,1.5vw,0.35em)",
-                fontFamily: "Inter, sans-serif",
-                fontWeight: 500,
+                fontFamily: "Inter, sans-serif", fontWeight: 500,
                 fontSize: "clamp(8px,1.8vw,11px)",
-                minHeight: "40px",
-                minWidth: "100px",
-                touchAction: "manipulation",
+                minHeight: "40px", minWidth: "100px", touchAction: "manipulation",
               }}
             >
               VIEW PROJECTS ›
@@ -345,14 +364,8 @@ export default function Hero() {
 
         <div
           style={{
-            position:      "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            zIndex: 11,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
+            position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 11,
+            display: "flex", flexDirection: "column", alignItems: "center",
             gap: "clamp(8px,1.8vh,18px)",
             paddingBottom: "calc(env(safe-area-inset-bottom,0px) + clamp(10px,2vh,20px))",
             pointerEvents: "none",
@@ -361,26 +374,45 @@ export default function Hero() {
 
           <ScrollIndicator nextSection="about" dark={true} hero={true} />
 
-
+          {/* ── Slide navigation: ‹ dots › ──────────────────── */}
           <div
             style={{
-              display:        "flex",
-              justifyContent: "center",
-              alignItems:     "center",
-              gap:            "clamp(4px,1vw,10px)",
-              paddingLeft:    "16px",
-              paddingRight:   "16px",
-              flexWrap:       "nowrap",
-              pointerEvents:  "auto",
+              display: "flex", justifyContent: "center", alignItems: "center",
+              gap: "clamp(6px,1.2vw,14px)",
+              paddingLeft: "16px", paddingRight: "16px",
+              flexWrap: "nowrap", pointerEvents: "auto",
             }}
           >
+
+            <button
+              onClick={() => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length)}
+              aria-label="Previous slide"
+              style={{
+                width: "26px", height: "26px",
+                borderRadius: "50%",
+                border: "1px solid rgba(201,168,76,0.45)",
+                background: "rgba(10,8,5,0.45)",
+                color: "rgba(201,168,76,0.70)", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                flexShrink: 0, padding: 0, minWidth: "unset", minHeight: "unset",
+                transition: "border-color 0.3s, background 0.3s, color 0.3s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = "#C9A84C"; e.currentTarget.style.background = "rgba(10,8,5,0.70)"; e.currentTarget.style.color = "#C9A84C"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(201,168,76,0.45)"; e.currentTarget.style.background = "rgba(10,8,5,0.45)"; e.currentTarget.style.color = "rgba(201,168,76,0.70)"; }}
+            >
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+
+
             {SLIDES.map((_, i) => (
               <div
                 key={i}
                 className="hero-dot"
                 onClick={() => setCurrent(i)}
                 style={{
-                  width:      "clamp(18px, 3.5vw, 38px)",
+                  width:      "clamp(18px,3.5vw,38px)",
                   height:     "3px",
                   flexShrink:  0,
                   background: i === current ? "#C9A84C" : "rgba(255,255,255,0.35)",
@@ -389,6 +421,28 @@ export default function Hero() {
                 }}
               />
             ))}
+
+
+            <button
+              onClick={() => setCurrent((c) => (c + 1) % SLIDES.length)}
+              aria-label="Next slide"
+              style={{
+                width: "26px", height: "26px",
+                borderRadius: "50%",
+                border: "1px solid rgba(201,168,76,0.45)",
+                background: "rgba(10,8,5,0.45)",
+                color: "rgba(201,168,76,0.70)", cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                flexShrink: 0, padding: 0, minWidth: "unset", minHeight: "unset",
+                transition: "border-color 0.3s, background 0.3s, color 0.3s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = "#C9A84C"; e.currentTarget.style.background = "rgba(10,8,5,0.70)"; e.currentTarget.style.color = "#C9A84C"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(201,168,76,0.45)"; e.currentTarget.style.background = "rgba(10,8,5,0.45)"; e.currentTarget.style.color = "rgba(201,168,76,0.70)"; }}
+            >
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
           </div>
         </div>
 

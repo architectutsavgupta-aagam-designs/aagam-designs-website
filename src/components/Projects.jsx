@@ -28,6 +28,8 @@ import proj17T from "../assets/project17.jpg";
 import proj18T from "../assets/project18.jpg";
 import proj19T from "../assets/project19.jpg";
 import proj20T from "../assets/project20.jpg";
+import proj21T from "../assets/project21.jpg";
+
 
 
 
@@ -51,20 +53,23 @@ import Proj3b from "../assets/project3b.jpg";
 
 //Project 4 - Agarwal Residence
 import Proj4a from "../assets/project4a.jpg";
+import Proj4a1 from "../assets/project4a1.jpg";
+import Proj4a2 from "../assets/project4a2.jpg";
+import Proj4a3 from "../assets/project4a3.jpg";
 import Proj4b from "../assets/project4b.jpg";
+import Proj4b1 from "../assets/project4b1.jpg";
+import Proj4b2 from "../assets/project4b2.jpg";
 import Proj4c from "../assets/project4c.jpg";
+import Proj4c1 from "../assets/project4c1.jpg";
 import Proj4d from "../assets/project4d.jpg";
+import Proj4d1 from "../assets/project4d1.jpg";
+import Proj4d2 from "../assets/project4d2.jpg";
+import Proj4d3 from "../assets/project4d3.jpg";
+import Proj4d4 from "../assets/project4d4.jpg";
+import Proj4d5 from "../assets/project4d5.jpg";
+import Proj4d6 from "../assets/project4d6.jpg";
 import Proj4e from "../assets/project4e.jpg";
-import Proj4f from "../assets/project4f.jpg";
-import Proj4g from "../assets/project4g.jpg";
-import Proj4h from "../assets/project4h.jpg";
-import Proj4i from "../assets/project4i.jpg";
-import Proj4j from "../assets/project4j.jpg";
-import Proj4k from "../assets/project4k.jpg";
-import Proj4l from "../assets/project4l.jpg";
-import Proj4m from "../assets/project4m.jpg";
-import Proj4n from "../assets/project4n.jpg";
-import Proj4o from "../assets/project4o.jpg";
+
 
 //Project 5 - Highway City Residence
 import Proj5a from "../assets/project5a.jpg";
@@ -122,6 +127,17 @@ import Proj20e from "../assets/project20e.jpg";
 import Proj20f from "../assets/project20f.jpg";
 
 
+//Project 21 - Gulmohar Vihar Renovation
+import Proj21a from "../assets/project21a.jpg";
+import Proj21b from "../assets/project21b.jpg";
+import Proj21c from "../assets/project21c.jpg";
+import Proj21d from "../assets/project21d.jpg";
+import Proj21e from "../assets/project21e.jpg";
+import Proj21f from "../assets/project21f.jpg";
+import Proj21g from "../assets/project21g.jpg";
+import Proj21h from "../assets/project21h.jpg";
+import Proj21i from "../assets/project21i.jpg";
+
 
 const PROJECTS = [
   {
@@ -132,7 +148,7 @@ const PROJECTS = [
     categories: ["Renovation", "Construction"],
     area: "2800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "A renovation construction project aimed to modernise the house facade and to accommodate family’s changing lifestyle.",
+    description: "A renovation construction project aimed to modernise the house facade and to accommodate family's changing lifestyle.",
   },
   {
     id: 15,
@@ -143,6 +159,16 @@ const PROJECTS = [
     area: "4800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
     description: "A renovation facade design project that was aimed to modernize the old facade into a modern contemporary one.",
+  },
+  {
+    id: 21,
+    src: proj21T,
+    images: [proj21T, Proj21a, Proj21b, Proj21c, Proj21d, Proj21e, Proj21f, Proj21g, Proj21h, Proj21i],
+    title: "Gulmohar Vihar Renovation",
+    categories: ["Renovation", "Construction"],
+    area: "1200 Sq.Ft.",
+    location: "Kidwai Nagar, Kanpur, UP",
+    description: "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
   },
   {
     id: 2,
@@ -164,6 +190,7 @@ const PROJECTS = [
     location: "Kidwai Nagar, Kanpur, UP",
     description: "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
   },
+  
   {
     id: 3,
     src: proj3T,
@@ -177,20 +204,20 @@ const PROJECTS = [
   {
     id: 4,
     src: proj4T,
-    images: [proj4T, Proj4a, Proj4b, Proj4c, Proj4d, Proj4e, Proj4f, Proj4g, Proj4h, Proj4i, Proj4j, Proj4k, Proj4l, Proj4m, Proj4n, Proj4o],
+    images: [proj4T, Proj4a, Proj4a1, Proj4a2, Proj4a3, Proj4b, Proj4b1, Proj4b2, Proj4c, Proj4c1, Proj4d, Proj4d1, Proj4d2, Proj4d3, Proj4d4, Proj4d5, Proj4d6, Proj4e],
     title: "Agarwal Residence",
     categories: ["Renovation", "Interior Designing"],
     area: "1800 Sq.Ft.",
     location: "Civil Lines, Kanpur, UP",
     description: "An interior renovation project designed to merge two existing flats into a single cohesive residence while modernizing the overall interior design.",
   },
-  
+
   {
     id: 19,
     src: proj19T,
     images: [proj19T, Proj19a, Proj19b, Proj19c, Proj19d, Proj19e],
     title: "Meridian Sky",
-    categories: ["Designing"],
+    categories: ["Interior Designing"],
     area: "48000 Sq.Ft.",
     location: "Namak factory, Kakadev, Kanpur, UP",
     description: "A modern luxurious hospitality establishment in the heart of city containing fifty rooms, four banquets, two restaurants, rooftop infinity pool and other modern amenities.",
@@ -203,7 +230,7 @@ const PROJECTS = [
     categories: ["Designing", "Renovation"],
     area: "11200 Sq.Ft.",
     location: "Swaroop Nagar, Kanpur, UP",
-    description: "A renovation construction project to redevelop a forty year old bungalow to meet modern living standards of a family of CA’s.",
+    description: "A renovation construction project to redevelop a forty year old bungalow to meet modern living standards of a family of CA's.",
   },
   {
     id: 14,
@@ -234,7 +261,7 @@ const PROJECTS = [
     area: "4900 Sq.Ft.",
     location: "Ratanlal Nagar, Kanpur, UP",
     description: "A multi-story residence featuring clean minimalist facade. Designed for a single family of eight people, containing a 6 bhk establishment with a garden and lot of open spaces.",
-  },  
+  },
   {
     id: 11,
     src: proj11T,
@@ -417,7 +444,7 @@ function Lightbox({ project, onClose }) {
     setImgIndex(i => (i + 1) % total);
   }, [total]);
 
-
+  /* ── Keyboard navigation + body scroll lock ─────────────── */
   useEffect(() => {
     const handleKey = e => {
       if (e.key === "ArrowLeft")  prev();
@@ -431,6 +458,38 @@ function Lightbox({ project, onClose }) {
       window.removeEventListener("keydown", handleKey);
     };
   }, [prev, next, onClose]);
+
+  const wheelCooldown = useRef(false);
+
+  const handleWheel = (e) => {
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; 
+    if (Math.abs(e.deltaX) < 10) return;                 
+    if (wheelCooldown.current) return;                   
+    wheelCooldown.current = true;
+    setTimeout(() => { wheelCooldown.current = false; }, 600);
+    if (e.deltaX > 0) next(); else prev();
+  };
+
+
+  const swipeStartX = useRef(null);
+  const swipeStartY = useRef(null);
+
+  const handleSwipeStart = (e) => {
+    const touch = e.touches?.[0] ?? e;
+    swipeStartX.current = touch.clientX;
+    swipeStartY.current = touch.clientY;
+  };
+
+  const handleSwipeEnd = (e) => {
+    if (swipeStartX.current === null) return;
+    const touch = e.changedTouches?.[0] ?? e;
+    const dx = touch.clientX - swipeStartX.current;
+    const dy = touch.clientY - swipeStartY.current;
+    swipeStartX.current = null;
+    swipeStartY.current = null;
+    if (Math.abs(dx) < 30 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) next(); else prev();
+  };
 
   return (
     <motion.div
@@ -465,10 +524,13 @@ function Lightbox({ project, onClose }) {
           msOverflowStyle: "none",
         }}
       >
-
-
-        <div style={{ position: "relative", background: "#000" }}>
-
+        <div
+          style={{ position: "relative", background: "#000", touchAction: "none", userSelect: "none" }}
+          onTouchStart={handleSwipeStart}
+          onTouchEnd={handleSwipeEnd}
+          onWheel={handleWheel}
+          onContextMenu={e => e.preventDefault()}
+        >
 
           <style>{`
             .lb-img-wrap { aspect-ratio: 16 / 10; }
@@ -483,6 +545,8 @@ function Lightbox({ project, onClose }) {
                 key={imgIndex}
                 src={project.images[imgIndex]}
                 alt={`${project.title} — photo ${imgIndex + 1}`}
+                className="lb-image"
+                draggable={false}
                 initial={{ opacity: 0, x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -24 }}
@@ -495,6 +559,8 @@ function Lightbox({ project, onClose }) {
                   objectFit: "contain",
                   objectPosition: "center",
                   display: "block",
+                  userSelect: "none",
+                  WebkitUserDrag: "none",
                 }}
               />
             </AnimatePresence>
@@ -504,6 +570,7 @@ function Lightbox({ project, onClose }) {
             {total > 1 && (
               <button
                 onClick={prev}
+                onTouchEnd={e => { e.stopPropagation(); prev(); }}
                 aria-label="Previous image"
                 style={{
                   position: "absolute", left: 0, top: 0, bottom: 0,
@@ -514,6 +581,7 @@ function Lightbox({ project, onClose }) {
                   paddingLeft: "clamp(10px,2vw,20px)",
                   transition: "background 0.2s",
                   zIndex: 3, minWidth: "unset", minHeight: "unset",
+                  pointerEvents: "auto",
                 }}
                 onMouseEnter={e => e.currentTarget.style.background = "linear-gradient(to right, rgba(0,0,0,0.72), transparent)"}
                 onMouseLeave={e => e.currentTarget.style.background = "linear-gradient(to right, rgba(0,0,0,0.50), transparent)"}
@@ -524,12 +592,11 @@ function Lightbox({ project, onClose }) {
               </button>
             )}
 
-
-
-
+            
             {total > 1 && (
               <button
                 onClick={next}
+                onTouchEnd={e => { e.stopPropagation(); next(); }}
                 aria-label="Next image"
                 style={{
                   position: "absolute", right: 0, top: 0, bottom: 0,
@@ -540,6 +607,7 @@ function Lightbox({ project, onClose }) {
                   paddingRight: "clamp(10px,2vw,20px)",
                   transition: "background 0.2s",
                   zIndex: 3, minWidth: "unset", minHeight: "unset",
+                  pointerEvents: "auto",
                 }}
                 onMouseEnter={e => e.currentTarget.style.background = "linear-gradient(to left, rgba(0,0,0,0.72), transparent)"}
                 onMouseLeave={e => e.currentTarget.style.background = "linear-gradient(to left, rgba(0,0,0,0.50), transparent)"}
@@ -595,6 +663,7 @@ function Lightbox({ project, onClose }) {
             )}
 
 
+
             <button
               onClick={onClose}
               aria-label="Close"
@@ -620,8 +689,9 @@ function Lightbox({ project, onClose }) {
           </div>
         </div>
 
-
+        
         <div style={{ padding: "clamp(18px,3.5vw,28px)", background: "#fff" }}>
+
 
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", marginBottom: "10px" }}>
@@ -795,6 +865,7 @@ export default function Projects() {
             </p>
           </motion.div>
         )}
+
 
 
         <motion.p initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.8 }}
