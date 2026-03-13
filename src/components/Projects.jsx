@@ -127,6 +127,7 @@ import Proj20e from "../assets/project20e.jpg";
 import Proj20f from "../assets/project20f.jpg";
 
 
+
 //Project 21 - Gulmohar Vihar Renovation
 import Proj21a from "../assets/project21a.jpg";
 import Proj21b from "../assets/project21b.jpg";
@@ -152,23 +153,24 @@ const PROJECTS = [
     description: "A renovation construction project aimed to modernise the house facade and to accommodate family's changing lifestyle.",
   },
   {
-    id: 8,
-    src: proj8T,
-    images: [proj8T, Proj8a],
-    title: "Dev Tower",
-    categories: ["Designing", "Construction"],
-    area: "6800 Sq.Ft.",
+    id: 15,
+    src: proj15T,
+    images: [proj15T, Proj15a, Proj15b, Proj15c, Proj15d, Proj15e],
+    title: "Shukla Niwas",
+    categories: ["Designing", "Renovation"],
+    area: "4800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "Located in Kidwai Nagar area of Kanpur City, a sophisticated commercial development designed to offer a carpet area of close to 1000sqft per floor. The complex offers upper ground, lower ground plus two commercial floors was undertaken as a turnkey project.",
+    description: "A renovation facade design project that was aimed to modernize the old facade into a modern contemporary one.",
   },
-  
+
+
   {
     id: 21,
     src: proj21T,
     images: [proj21T, Proj21a, Proj21b, Proj21c, Proj21d, Proj21e, Proj21f, Proj21g, Proj21h, Proj21i],
     title: "Gulmohar Vihar Renovation",
     categories: ["Renovation", "Construction"],
-    area: "2650 Sq.Ft.",
+    area: "1200 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
     description: "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
   },
@@ -194,17 +196,16 @@ const PROJECTS = [
   },
 
   {
-    id: 15,
-    src: proj15T,
-    images: [proj15T, Proj15a, Proj15b, Proj15c, Proj15d, Proj15e],
-    title: "Shukla Niwas",
+    id: 3,
+    src: proj3T,
+    images: [proj3T, Proj3a, Proj3b],
+    title: "The Kidwai Nagar Residence",
     categories: ["Designing", "Renovation"],
-    area: "4800 Sq.Ft.",
+    area: "5200 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "A renovation facade design project that was aimed to modernize the old facade into a modern contemporary one.",
+    description: "Sleek mixed-use residential building with timber vertical fins.",
   },
-  
-  
+
   {
     id: 4,
     src: proj4T,
@@ -226,6 +227,7 @@ const PROJECTS = [
     location: "Namak factory, Kakadev, Kanpur, UP",
     description: "A modern luxurious hospitality establishment in the heart of city containing fifty rooms, four banquets, two restaurants, rooftop infinity pool and other modern amenities.",
   },
+
   {
     id: 18,
     src: proj18T,
@@ -236,6 +238,7 @@ const PROJECTS = [
     location: "Swaroop Nagar, Kanpur, UP",
     description: "A renovation construction project to redevelop a forty year old bungalow to meet modern living standards of a family of CA's.",
   },
+
   {
     id: 14,
     src: proj14T,
@@ -246,28 +249,18 @@ const PROJECTS = [
     location: "Keshav Nagar, Kanpur, UP",
     description: "Renovation extension project for an elderly couple. Aim of the project was to extend a floor containing a 2 bhk portion on top of existing single storey building.",
   },
+
   {
-    id: 3,
-    src: proj3T,
-    images: [proj3T, Proj3a, Proj3b],
-    title: "The Kidwai Nagar Residence",
-    categories: ["Designing", "Renovation"],
-    area: "5200 Sq.Ft.",
+    id: 8,
+    src: proj8T,
+    images: [proj8T, Proj8a],
+    title: "Dev Tower",
+    categories: ["Designing", "Construction"],
+    area: "6800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "Sleek mixed-use residential building with timber vertical fins.",
+    description: "Located in Kidwai Nagar area of Kanpur City, a sophisticated commercial development designed to offer a carpet area of close to 1000sqft per floor. The complex offers upper ground, lower ground plus two commercial floors was undertaken as a turnkey project.",
   },
-  //kidwai aprtment yaha per
-  {
-    id: 10,
-    src: proj10T,
-    images: [proj10T],
-    title: "Kidwai Nagar Apartment",
-    categories: ["Designing"],
-    area: "15200 Sq.Ft.",
-    location: "Kidwai Nagar, Kanpur, UP",
-    description: "A striking mixed-use complex designed to incorporate two floors for commercial and three floors of residential units. Residential floor has two units of three bhk each floor.",
-  },
-  
+
   {
     id: 17,
     src: proj17T,
@@ -278,6 +271,7 @@ const PROJECTS = [
     location: "Ratanlal Nagar, Kanpur, UP",
     description: "A multi-story residence featuring clean minimalist facade. Designed for a single family of eight people, containing a 6 bhk establishment with a garden and lot of open spaces.",
   },
+
   {
     id: 11,
     src: proj11T,
@@ -288,6 +282,7 @@ const PROJECTS = [
     location: "Yashoda Nagar, Kanpur, UP",
     description: "A five bhk bungalow designed for a family of eight members in kanpur city.",
   },
+
   {
     id: 16,
     src: proj16T,
@@ -298,6 +293,7 @@ const PROJECTS = [
     location: "Mansarovar Yojna, Lucknow, UP",
     description: "A residential project located in Mansarovar Yojna locality of Lucknow city covering a builtup 7300 Sq.Ft.",
   },
+
   {
     id: 9,
     src: proj9T,
@@ -308,6 +304,7 @@ const PROJECTS = [
     location: "Acharya Nagar, Kanpur, UP",
     description: "A contemporary multi-story home designed to accommodate two families. With a 2bhk portion on each floor and common amenities and car parking on ground floor.",
   },
+
   {
     id: 5,
     src: proj5T,
@@ -318,6 +315,7 @@ const PROJECTS = [
     location: "New Highway City, Kanpur, UP",
     description: "A multi storey contemporary residence made for three families in a builtup area of 6400sqft.",
   },
+
   {
     id: 6,
     src: proj6T,
@@ -328,6 +326,7 @@ const PROJECTS = [
     location: "Naubasta, Kanpur, UP",
     description: "A mixed use building with a builtup area of 6400sqft.",
   },
+
   {
     id: 7,
     src: proj7T,
@@ -338,7 +337,18 @@ const PROJECTS = [
     location: "Saket Nagar, Kanpur, UP",
     description: "A modern luxurious apartment designed in builtup area of 6300sqft in saket nagar area of kanpur city.",
   },
-  
+
+  {
+    id: 10,
+    src: proj10T,
+    images: [proj10T],
+    title: "Kidwai Nagar Apartment",
+    categories: ["Designing"],
+    area: "1450 Sq.Ft.",
+    location: "Kidwai Nagar, Kanpur, UP",
+    description: "A striking mixed-use complex designed to incorporate two floors for commercial and three floors of residential units. Residential floor has two units of three bhk each floor.",
+  },
+
   {
     id: 12,
     src: proj12T,
@@ -349,6 +359,7 @@ const PROJECTS = [
     location: "Indira Nagar, Lucknow, UP",
     description: "A residential project located in Indira Nagar locality of Lucknow city covering a builtup 3250 Sq.Ft.",
   },
+
   {
     id: 13,
     src: proj13T,
@@ -359,6 +370,7 @@ const PROJECTS = [
     location: "Vrindavan colony, Lucknow, UP",
     description: "A residential project located in Vrindavan colony locality of Lucknow city covering a builtup 3550 Sq.Ft.",
   },
+
 ];
 
 const CATS = ["All", "Designing", "Renovation", "Construction", "Interior Designing"];
@@ -454,16 +466,15 @@ function Lightbox({ project, onClose, preloadOne }) {
     setImgIndex(i => (i + 1) % total);
   }, [total]);
 
-  
+  /* Preload adjacent images immediately, then rest after delay */
   useEffect(() => {
     // Always preload next + prev instantly
     preloadOne(project.images[(imgIndex + 1) % total]);
     preloadOne(project.images[(imgIndex - 1 + total) % total]);
   }, [imgIndex, project, total, preloadOne]);
 
-  
-  
-
+  /* On first open: after 1.5s quietly load remaining images
+     one at a time — weak networks won't even notice */
   useEffect(() => {
     const timers = [];
     project.images.forEach((src, i) => {
@@ -474,7 +485,7 @@ function Lightbox({ project, onClose, preloadOne }) {
     return () => timers.forEach(clearTimeout);
   }, [project, preloadOne]);
 
-  
+  /* ── Keyboard navigation + body scroll lock ─────────────── */
   useEffect(() => {
     const handleKey = e => {
       if (e.key === "ArrowLeft")  prev();
@@ -489,8 +500,10 @@ function Lightbox({ project, onClose, preloadOne }) {
     };
   }, [prev, next, onClose]);
 
-  
-  
+  /* ── Trackpad / mouse-wheel horizontal swipe ─────────────────
+     Trackpad two-finger swipes fire as wheel events with deltaX.
+     We debounce with a cooldown so one swipe = one image change.
+  ──────────────────────────────────────────────────────────── */
   const wheelCooldown = useRef(false);
 
   const handleWheel = (e) => {
@@ -502,8 +515,13 @@ function Lightbox({ project, onClose, preloadOne }) {
     if (e.deltaX > 0) next(); else prev();
   };
 
-  
-  
+  /* ── Touch / swipe navigation ────────────────────────────────
+     Attached to the image area div (not the img element itself).
+     Swipe LEFT  → next image.
+     Swipe RIGHT → previous image.
+     Threshold: 30px — low enough for quick flicks on mobile.
+     Checks |dx| > |dy| so it never fires on vertical scrolls.
+  ──────────────────────────────────────────────────────────── */
   const swipeStartX = useRef(null);
   const swipeStartY = useRef(null);
 
@@ -558,8 +576,16 @@ function Lightbox({ project, onClose, preloadOne }) {
         }}
       >
 
-        
-        
+        {/* IMAGE AREA ─────────────────────────────────────────
+            • touchAction:"none" on the outer div tells the browser
+              to hand ALL touch events (horizontal AND vertical) to
+              React — no native scroll interference inside this area.
+            • onTouchStart/onTouchEnd on the outer div catch swipes
+              anywhere on the image, not just on the <img> element.
+            • className="lb-image" on <motion.img> opts it out of
+              the global pointer-events:none rule in image-protection.css
+              so touch events can actually bubble up to this div.
+        ──────────────────────────────────────────────────────── */}
         <div
           style={{ position: "relative", background: "#000", touchAction: "none", userSelect: "none" }}
           onTouchStart={handleSwipeStart}
@@ -576,8 +602,13 @@ function Lightbox({ project, onClose, preloadOne }) {
 
           <div className="lb-img-wrap" style={{ width: "100%", position: "relative", overflow: "hidden", background: "#0a0a0a" }}>
 
-            
-            
+            {/* ── Instant image swap — no animation ────────────────
+                Cadence-style: image appears immediately, no fade/slide.
+                A dark skeleton (#0a0a0a bg above) fills the frame while
+                the image downloads so there's no flash of empty space.
+                The img key change triggers an instant src swap;
+                decoding="async" keeps the main thread unblocked.
+            ──────────────────────────────────────────────────────── */}
             <img
               key={imgIndex}
               src={project.images[imgIndex]}
@@ -603,7 +634,7 @@ function Lightbox({ project, onClose, preloadOne }) {
             {total > 1 && (
               <button
                 onClick={prev}
-                onTouchEnd={e => { e.stopPropagation(); prev(); }}
+                onTouchEnd={e => { e.preventDefault(); e.stopPropagation(); prev(); }}
                 aria-label="Previous image"
                 style={{
                   position: "absolute", left: 0, top: 0, bottom: 0,
@@ -628,7 +659,7 @@ function Lightbox({ project, onClose, preloadOne }) {
             {total > 1 && (
               <button
                 onClick={next}
-                onTouchEnd={e => { e.stopPropagation(); next(); }}
+                onTouchEnd={e => { e.preventDefault(); e.stopPropagation(); next(); }}
                 aria-label="Next image"
                 style={{
                   position: "absolute", right: 0, top: 0, bottom: 0,
@@ -722,7 +753,7 @@ function Lightbox({ project, onClose, preloadOne }) {
 
         
         <div style={{ padding: "clamp(18px,3.5vw,28px)", background: "#fff" }}>
-          
+
 
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", marginBottom: "10px" }}>
@@ -781,27 +812,27 @@ export default function Projects() {
 
   const filtered = filter === "All" ? PROJECTS : PROJECTS.filter(p => p.categories.includes(filter));
 
-
-  
   
   const preloadCache = useRef(new Set());
 
-  /*  Lightbox start here  */
+  /* lightbox hai */
   const preloadOne = useCallback((src) => {
     if (!src || preloadCache.current.has(src)) return;
     preloadCache.current.add(src);
     const img = new Image();
-    
+    /* fetchPriority "low" tells the browser this is background
+       work — it won't compete with visible content on slow networks */
     img.fetchPriority = "low";
     img.decoding = "async";
     img.src = src;
   }, []);
 
-  
+  // Called on card hover 
   const handleCardHover = useCallback((project) => {
     preloadOne(project.images[0]);
     preloadOne(project.images[1]); 
-    preloadOne(project.images[2]); 
+    preloadOne(project.images[2]);
+
   }, [preloadOne]);
 
   return (
@@ -920,6 +951,7 @@ export default function Projects() {
           </motion.div>
         )}
 
+        
 
 
         <motion.p initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.8 }}
