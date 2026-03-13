@@ -139,6 +139,7 @@ import Proj21h from "../assets/project21h.jpg";
 import Proj21i from "../assets/project21i.jpg";
 
 
+
 const PROJECTS = [
   {
     id: 1,
@@ -190,7 +191,7 @@ const PROJECTS = [
     location: "Kidwai Nagar, Kanpur, UP",
     description: "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
   },
-  
+
   {
     id: 3,
     src: proj3T,
@@ -357,7 +358,7 @@ const PROJECTS = [
 const CATS = ["All", "Designing", "Renovation", "Construction", "Interior Designing"];
 
 
-function ProjectCard({ project, onClick, index }) {
+function ProjectCard({ project, onClick, onHover, index }) {
   return (
     <motion.div
       layout
@@ -366,6 +367,8 @@ function ProjectCard({ project, onClick, index }) {
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       onClick={() => onClick(project)}
+      onHoverStart={() => onHover(project)}
+      onTouchStart={() => onHover(project)}
       whileHover={{ y: -5 }}
       style={{ cursor: "pointer" }}
     >
@@ -374,6 +377,7 @@ function ProjectCard({ project, onClick, index }) {
           src={project.src}
           alt={project.title}
           loading="lazy"
+          decoding="async"
           style={{
             position: "absolute", inset: 0, width: "100%", height: "100%",
             objectFit: "cover", transition: "transform 0.7s ease",
@@ -430,7 +434,7 @@ function ProjectCard({ project, onClick, index }) {
 }
 
 
-function Lightbox({ project, onClose }) {
+function Lightbox({ project, onClose, preloadOne }) {
   const [imgIndex, setImgIndex] = useState(0);
   const total = project.images.length;
 
@@ -443,6 +447,25 @@ function Lightbox({ project, onClose }) {
     e?.stopPropagation();
     setImgIndex(i => (i + 1) % total);
   }, [total]);
+
+  /* Preload adjacent images immediately, then rest after delay */
+  useEffect(() => {
+    // Always preload next + prev instantly
+    preloadOne(project.images[(imgIndex + 1) % total]);
+    preloadOne(project.images[(imgIndex - 1 + total) % total]);
+  }, [imgIndex, project, total, preloadOne]);
+
+  /* On first open: after 1.5s quietly load remaining images
+     one at a time — weak networks won't even notice */
+  useEffect(() => {
+    const timers = [];
+    project.images.forEach((src, i) => {
+      if (i === 0) return; // already loaded (was the thumbnail)
+      const t = setTimeout(() => preloadOne(src), 1500 + i * 200);
+      timers.push(t);
+    });
+    return () => timers.forEach(clearTimeout);
+  }, [project, preloadOne]);
 
   /* ── Keyboard navigation + body scroll lock ─────────────── */
   useEffect(() => {
@@ -459,18 +482,28 @@ function Lightbox({ project, onClose }) {
     };
   }, [prev, next, onClose]);
 
+  /* ── Trackpad / mouse-wheel horizontal swipe ─────────────────
+     Trackpad two-finger swipes fire as wheel events with deltaX.
+     We debounce with a cooldown so one swipe = one image change.
+  ──────────────────────────────────────────────────────────── */
   const wheelCooldown = useRef(false);
 
   const handleWheel = (e) => {
-    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; 
-    if (Math.abs(e.deltaX) < 10) return;                 
-    if (wheelCooldown.current) return;                   
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // vertical scroll — ignore
+    if (Math.abs(e.deltaX) < 10) return;                 // too small — ignore
+    if (wheelCooldown.current) return;                   // still in cooldown
     wheelCooldown.current = true;
     setTimeout(() => { wheelCooldown.current = false; }, 600);
     if (e.deltaX > 0) next(); else prev();
   };
 
-
+  /* ── Touch / swipe navigation ────────────────────────────────
+     Attached to the image area div (not the img element itself).
+     Swipe LEFT  → next image.
+     Swipe RIGHT → previous image.
+     Threshold: 30px — low enough for quick flicks on mobile.
+     Checks |dx| > |dy| so it never fires on vertical scrolls.
+  ──────────────────────────────────────────────────────────── */
   const swipeStartX = useRef(null);
   const swipeStartY = useRef(null);
 
@@ -524,6 +557,17 @@ function Lightbox({ project, onClose }) {
           msOverflowStyle: "none",
         }}
       >
+
+        {/* IMAGE AREA ─────────────────────────────────────────
+            • touchAction:"none" on the outer div tells the browser
+              to hand ALL touch events (horizontal AND vertical) to
+              React — no native scroll interference inside this area.
+            • onTouchStart/onTouchEnd on the outer div catch swipes
+              anywhere on the image, not just on the <img> element.
+            • className="lb-image" on <motion.img> opts it out of
+              the global pointer-events:none rule in image-protection.css
+              so touch events can actually bubble up to this div.
+        ──────────────────────────────────────────────────────── */}
         <div
           style={{ position: "relative", background: "#000", touchAction: "none", userSelect: "none" }}
           onTouchStart={handleSwipeStart}
@@ -538,34 +582,36 @@ function Lightbox({ project, onClose }) {
             .lb-modal::-webkit-scrollbar { display: none; }
           `}</style>
 
-          <div className="lb-img-wrap" style={{ width: "100%", position: "relative", overflow: "hidden" }}>
+          <div className="lb-img-wrap" style={{ width: "100%", position: "relative", overflow: "hidden", background: "#0a0a0a" }}>
 
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={imgIndex}
-                src={project.images[imgIndex]}
-                alt={`${project.title} — photo ${imgIndex + 1}`}
-                className="lb-image"
-                draggable={false}
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -24 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  objectPosition: "center",
-                  display: "block",
-                  userSelect: "none",
-                  WebkitUserDrag: "none",
-                }}
-              />
-            </AnimatePresence>
-
-
+            {/* ── Instant image swap — no animation ────────────────
+                Cadence-style: image appears immediately, no fade/slide.
+                A dark skeleton (#0a0a0a bg above) fills the frame while
+                the image downloads so there's no flash of empty space.
+                The img key change triggers an instant src swap;
+                decoding="async" keeps the main thread unblocked.
+            ──────────────────────────────────────────────────────── */}
+            <img
+              key={imgIndex}
+              src={project.images[imgIndex]}
+              alt={`${project.title} — photo ${imgIndex + 1}`}
+              className="lb-image"
+              draggable={false}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "contain",
+                objectPosition: "center",
+                display: "block",
+                userSelect: "none",
+                WebkitUserDrag: "none",
+              }}
+            />
 
             {total > 1 && (
               <button
@@ -592,7 +638,6 @@ function Lightbox({ project, onClose }) {
               </button>
             )}
 
-            
             {total > 1 && (
               <button
                 onClick={next}
@@ -617,7 +662,6 @@ function Lightbox({ project, onClose }) {
                 </svg>
               </button>
             )}
-
 
 
             {total > 1 && (
@@ -689,9 +733,9 @@ function Lightbox({ project, onClose }) {
           </div>
         </div>
 
-        
+        {/* DETAILS PANEL */}
         <div style={{ padding: "clamp(18px,3.5vw,28px)", background: "#fff" }}>
-
+          
 
 
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", marginBottom: "10px" }}>
@@ -749,6 +793,43 @@ export default function Projects() {
   const [filter, setFilter] = useState("All");
 
   const filtered = filter === "All" ? PROJECTS : PROJECTS.filter(p => p.categories.includes(filter));
+
+  /* ── Smart image preloading ───────────────────────────────────
+     Strategy that works on both fast AND weak networks:
+
+     Step 1 — On card HOVER: preload only that project's first
+              lightbox image (1 image, ~200-400KB). Near-zero
+              cost, but means the lightbox opens instantly.
+
+     Step 2 — On lightbox OPEN: preload next + prev images only
+              (2 images). User sees instant navigation for adjacent
+              slides without downloading the entire gallery.
+
+     Step 3 — After 1.5s in lightbox: quietly preload remaining
+              images of that project only, one at a time.
+
+     This way weak networks only ever download what's visible +
+     the next likely image — never the entire 80+ image catalog.
+  ──────────────────────────────────────────────────────────────── */
+  const preloadCache = useRef(new Set());
+
+  /* ── useCallback so Lightbox's useEffect deps stay stable ─── */
+  const preloadOne = useCallback((src) => {
+    if (!src || preloadCache.current.has(src)) return;
+    preloadCache.current.add(src);
+    const img = new Image();
+    /* fetchPriority "low" tells the browser this is background
+       work — it won't compete with visible content on slow networks */
+    img.fetchPriority = "low";
+    img.decoding = "async";
+    img.src = src;
+  }, []);
+
+  // Called on card hover — preload just the first lightbox image
+  const handleCardHover = useCallback((project) => {
+    preloadOne(project.images[0]);
+    preloadOne(project.images[1]); // second image too, very cheap
+  }, [preloadOne]);
 
   return (
     <section id="projects" style={{background: "#FCFCFC", position: "relative", overflow: "hidden" }}>
@@ -852,7 +933,7 @@ export default function Projects() {
         <motion.div layout style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: "clamp(16px,2.5vw,28px)" }}>
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} onClick={setSelected} />
+              <ProjectCard key={project.id} project={project} index={i} onClick={setSelected} onHover={handleCardHover} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -878,7 +959,7 @@ export default function Projects() {
 
 
       <AnimatePresence>
-        {selected && <Lightbox project={selected} onClose={() => setSelected(null)} />}
+        {selected && <Lightbox project={selected} onClose={() => setSelected(null)} preloadOne={preloadOne} />}
       </AnimatePresence>
 
     </section>
