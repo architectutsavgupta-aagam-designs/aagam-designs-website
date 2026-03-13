@@ -454,15 +454,16 @@ function Lightbox({ project, onClose, preloadOne }) {
     setImgIndex(i => (i + 1) % total);
   }, [total]);
 
-  /* Preload adjacent images immediately, then rest after delay */
+  
   useEffect(() => {
     // Always preload next + prev instantly
     preloadOne(project.images[(imgIndex + 1) % total]);
     preloadOne(project.images[(imgIndex - 1 + total) % total]);
   }, [imgIndex, project, total, preloadOne]);
 
-  /* On first open: after 1.5s quietly load remaining images
-     one at a time — weak networks won't even notice */
+  
+  
+
   useEffect(() => {
     const timers = [];
     project.images.forEach((src, i) => {
@@ -473,7 +474,7 @@ function Lightbox({ project, onClose, preloadOne }) {
     return () => timers.forEach(clearTimeout);
   }, [project, preloadOne]);
 
-  /* ── Keyboard navigation + body scroll lock ─────────────── */
+  
   useEffect(() => {
     const handleKey = e => {
       if (e.key === "ArrowLeft")  prev();
@@ -719,7 +720,7 @@ function Lightbox({ project, onClose, preloadOne }) {
           </div>
         </div>
 
-        {/* DETAILS PANEL */}
+        
         <div style={{ padding: "clamp(18px,3.5vw,28px)", background: "#fff" }}>
           
 
@@ -780,27 +781,27 @@ export default function Projects() {
 
   const filtered = filter === "All" ? PROJECTS : PROJECTS.filter(p => p.categories.includes(filter));
 
-  
+
   
   
   const preloadCache = useRef(new Set());
 
-  /* ── useCallback so Lightbox's useEffect deps stay stable ─── */
+  /*  Lightbox start here  */
   const preloadOne = useCallback((src) => {
     if (!src || preloadCache.current.has(src)) return;
     preloadCache.current.add(src);
     const img = new Image();
-    /* fetchPriority "low" tells the browser this is background
-       work — it won't compete with visible content on slow networks */
+    
     img.fetchPriority = "low";
     img.decoding = "async";
     img.src = src;
   }, []);
 
-  // Called on card hover — preload just the first lightbox image
+  
   const handleCardHover = useCallback((project) => {
     preloadOne(project.images[0]);
-    preloadOne(project.images[1]); // second image too, very cheap
+    preloadOne(project.images[1]); 
+    preloadOne(project.images[2]); 
   }, [preloadOne]);
 
   return (
