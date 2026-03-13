@@ -194,15 +194,16 @@ const PROJECTS = [
   },
 
   {
-    id: 10,
-    src: proj10T,
-    images: [proj10T],
-    title: "Kidwai Nagar Apartment",
-    categories: ["Designing"],
-    area: "15200 Sq.Ft.",
+    id: 15,
+    src: proj15T,
+    images: [proj15T, Proj15a, Proj15b, Proj15c, Proj15d, Proj15e],
+    title: "Shukla Niwas",
+    categories: ["Designing", "Renovation"],
+    area: "4800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "A striking mixed-use complex designed to incorporate two floors for commercial and three floors of residential units. Residential floor has two units of three bhk each floor.",
+    description: "A renovation facade design project that was aimed to modernize the old facade into a modern contemporary one.",
   },
+  
   
   {
     id: 4,
@@ -246,16 +247,6 @@ const PROJECTS = [
     description: "Renovation extension project for an elderly couple. Aim of the project was to extend a floor containing a 2 bhk portion on top of existing single storey building.",
   },
   {
-    id: 15,
-    src: proj15T,
-    images: [proj15T, Proj15a, Proj15b, Proj15c, Proj15d, Proj15e],
-    title: "Shukla Niwas",
-    categories: ["Designing", "Renovation"],
-    area: "4800 Sq.Ft.",
-    location: "Kidwai Nagar, Kanpur, UP",
-    description: "A renovation facade design project that was aimed to modernize the old facade into a modern contemporary one.",
-  },
-  {
     id: 3,
     src: proj3T,
     images: [proj3T, Proj3a, Proj3b],
@@ -265,6 +256,18 @@ const PROJECTS = [
     location: "Kidwai Nagar, Kanpur, UP",
     description: "Sleek mixed-use residential building with timber vertical fins.",
   },
+  //kidwai aprtment yaha per
+  {
+    id: 10,
+    src: proj10T,
+    images: [proj10T],
+    title: "Kidwai Nagar Apartment",
+    categories: ["Designing"],
+    area: "15200 Sq.Ft.",
+    location: "Kidwai Nagar, Kanpur, UP",
+    description: "A striking mixed-use complex designed to incorporate two floors for commercial and three floors of residential units. Residential floor has two units of three bhk each floor.",
+  },
+  
   {
     id: 17,
     src: proj17T,
@@ -485,10 +488,8 @@ function Lightbox({ project, onClose, preloadOne }) {
     };
   }, [prev, next, onClose]);
 
-  /* ── Trackpad / mouse-wheel horizontal swipe ─────────────────
-     Trackpad two-finger swipes fire as wheel events with deltaX.
-     We debounce with a cooldown so one swipe = one image change.
-  ──────────────────────────────────────────────────────────── */
+  
+  
   const wheelCooldown = useRef(false);
 
   const handleWheel = (e) => {
@@ -500,13 +501,8 @@ function Lightbox({ project, onClose, preloadOne }) {
     if (e.deltaX > 0) next(); else prev();
   };
 
-  /* ── Touch / swipe navigation ────────────────────────────────
-     Attached to the image area div (not the img element itself).
-     Swipe LEFT  → next image.
-     Swipe RIGHT → previous image.
-     Threshold: 30px — low enough for quick flicks on mobile.
-     Checks |dx| > |dy| so it never fires on vertical scrolls.
-  ──────────────────────────────────────────────────────────── */
+  
+  
   const swipeStartX = useRef(null);
   const swipeStartY = useRef(null);
 
@@ -561,16 +557,8 @@ function Lightbox({ project, onClose, preloadOne }) {
         }}
       >
 
-        {/* IMAGE AREA ─────────────────────────────────────────
-            • touchAction:"none" on the outer div tells the browser
-              to hand ALL touch events (horizontal AND vertical) to
-              React — no native scroll interference inside this area.
-            • onTouchStart/onTouchEnd on the outer div catch swipes
-              anywhere on the image, not just on the <img> element.
-            • className="lb-image" on <motion.img> opts it out of
-              the global pointer-events:none rule in image-protection.css
-              so touch events can actually bubble up to this div.
-        ──────────────────────────────────────────────────────── */}
+        
+        
         <div
           style={{ position: "relative", background: "#000", touchAction: "none", userSelect: "none" }}
           onTouchStart={handleSwipeStart}
@@ -587,13 +575,8 @@ function Lightbox({ project, onClose, preloadOne }) {
 
           <div className="lb-img-wrap" style={{ width: "100%", position: "relative", overflow: "hidden", background: "#0a0a0a" }}>
 
-            {/* ── Instant image swap — no animation ────────────────
-                Cadence-style: image appears immediately, no fade/slide.
-                A dark skeleton (#0a0a0a bg above) fills the frame while
-                the image downloads so there's no flash of empty space.
-                The img key change triggers an instant src swap;
-                decoding="async" keeps the main thread unblocked.
-            ──────────────────────────────────────────────────────── */}
+            
+            
             <img
               key={imgIndex}
               src={project.images[imgIndex]}
@@ -797,23 +780,9 @@ export default function Projects() {
 
   const filtered = filter === "All" ? PROJECTS : PROJECTS.filter(p => p.categories.includes(filter));
 
-  /* ── Smart image preloading ───────────────────────────────────
-     Strategy that works on both fast AND weak networks:
-
-     Step 1 — On card HOVER: preload only that project's first
-              lightbox image (1 image, ~200-400KB). Near-zero
-              cost, but means the lightbox opens instantly.
-
-     Step 2 — On lightbox OPEN: preload next + prev images only
-              (2 images). User sees instant navigation for adjacent
-              slides without downloading the entire gallery.
-
-     Step 3 — After 1.5s in lightbox: quietly preload remaining
-              images of that project only, one at a time.
-
-     This way weak networks only ever download what's visible +
-     the next likely image — never the entire 80+ image catalog.
-  ──────────────────────────────────────────────────────────────── */
+  
+  
+  
   const preloadCache = useRef(new Set());
 
   /* ── useCallback so Lightbox's useEffect deps stay stable ─── */
