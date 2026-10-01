@@ -240,7 +240,7 @@ export default function About() {
               }}
             >
               Led by{' '}
-              <strong style={{ color: '#8B6914', fontWeight: 500 }}>Architect Utsav Gupta</strong>,
+              <strong style={{ color: '#8B6914', fontWeight: 500 }}>Ar. Utsav Gupta and Aishwar Gupta</strong>,
               with over 10 years of professional experience, Aagam Designs brings together
               thoughtful design, technical precision and on-ground execution.
             </p>

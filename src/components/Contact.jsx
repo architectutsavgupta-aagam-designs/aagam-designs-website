@@ -1,8 +1,8 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { FaInstagram, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { fadeInLeft, fadeInRight } from "../animations/variants";
-
+import { motion } from "framer-motion";
 const SOCIALS = [
   {
     icon: <FaInstagram />,

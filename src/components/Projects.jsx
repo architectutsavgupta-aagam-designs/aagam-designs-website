@@ -1,12 +1,14 @@
-import { useRef, useState, useCallback, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
+import { useInView, AnimatePresence, motion } from "framer-motion";
+
 import ScrollIndicator from "./ScrollIndicator";
-
-
-
-import projectBg from "../assets/project_bg.jpg";
-
-
+import ProjectShare from "./ProjectShare";
+// import projectBg from "../assets/project_bg.jpg";
 
 import proj1T from "../assets/project1.jpg";
 import proj2T from "../assets/project2.jpg";
@@ -29,9 +31,7 @@ import proj18T from "../assets/project18.jpg";
 import proj19T from "../assets/project19.jpg";
 import proj20T from "../assets/project20.jpg";
 import proj21T from "../assets/project21.jpg";
-
-
-
+import proj22T from "../assets/project22.jpg";
 
 // Project 1 - The Vantage House
 import Proj1a from "../assets/project1a.jpg";
@@ -69,6 +69,8 @@ import Proj4d4 from "../assets/project4d4.jpg";
 import Proj4d5 from "../assets/project4d5.jpg";
 import Proj4d6 from "../assets/project4d6.jpg";
 import Proj4e from "../assets/project4e.jpg";
+
+
 
 
 //Project 5 - Highway City Residence
@@ -110,7 +112,6 @@ import Proj18a from "../assets/project18a.jpg";
 import Proj18b from "../assets/project18b.jpg";
 import Proj18c from "../assets/project18c.jpg";
 
-
 //Project 19 - Kakadev Hotel - Meridian Sky
 import Proj19a from "../assets/project19a.jpg";
 import Proj19b from "../assets/project19b.jpg";
@@ -126,8 +127,6 @@ import Proj20d from "../assets/project20d.jpg";
 import Proj20e from "../assets/project20e.jpg";
 import Proj20f from "../assets/project20f.jpg";
 
-
-
 //Project 21 - Gulmohar Vihar Renovation
 import Proj21a from "../assets/project21a.jpg";
 import Proj21b from "../assets/project21b.jpg";
@@ -139,18 +138,30 @@ import Proj21g from "../assets/project21g.jpg";
 import Proj21h from "../assets/project21h.jpg";
 import Proj21i from "../assets/project21i.jpg";
 
-
+//Project 22 - Hotel Elevation
+import Proj22a from "../assets/project22a.jpg";
 
 const PROJECTS = [
   {
     id: 1,
     src: proj1T,
-    images: [proj1T, Proj1a, Proj1b, Proj1c, Proj1d, Proj1e, Proj1f, Proj1g, Proj1h],
+    images: [
+      proj1T,
+      Proj1a,
+      Proj1b,
+      Proj1c,
+      Proj1d,
+      Proj1e,
+      Proj1f,
+      Proj1g,
+      Proj1h,
+    ],
     title: "The Vantage House",
     categories: ["Renovation", "Construction"],
     area: "2,800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "A renovation construction project aimed to modernise the house facade and to accommodate family's changing lifestyle.",
+    description:
+      "A renovation construction project aimed to modernise the house facade and to accommodate family's changing lifestyle.",
   },
   {
     id: 15,
@@ -160,19 +171,42 @@ const PROJECTS = [
     categories: ["Designing", "Renovation"],
     area: "4,800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "A renovation facade design project that was aimed to modernize the old facade into a modern contemporary one.",
+    description:
+      "A renovation facade design project that was aimed to modernize the old facade into a modern contemporary one.",
   },
-
 
   {
     id: 21,
     src: proj21T,
-    images: [proj21T, Proj21a, Proj21b, Proj21c, Proj21d, Proj21e, Proj21f, Proj21g, Proj21h, Proj21i],
+    images: [
+      proj21T,
+      Proj21a,
+      Proj21b,
+      Proj21c,
+      Proj21d,
+      Proj21e,
+      Proj21f,
+      Proj21g,
+      Proj21h,
+      Proj21i,
+    ],
     title: "Gulmohar Vihar Renovation",
     categories: ["Renovation", "Construction"],
     area: "2,650 Sq.Ft.",
     location: "Gulmohar Vihar, Kanpur, UP",
-    description: "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
+    description:
+      "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
+  },
+  {
+    id: 22,
+    src: proj22T,
+    images: [proj22T, Proj22a],
+    title: "",
+    categories: ["Designing", "Construction"],
+    area: "2,650 Sq.Ft.",
+    location: "Gulmohar Vihar, Kanpur, UP",
+    description:
+      "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
   },
   {
     id: 2,
@@ -182,7 +216,8 @@ const PROJECTS = [
     categories: ["Designing", "Construction"],
     area: "2,700 Sq.Ft.",
     location: "Maswanpur, Kanpur, UP",
-    description: "A compact 3 bkh contemporary house located in maswanpur locality of kanpur city.",
+    description:
+      "A compact 3 bkh contemporary house located in maswanpur locality of kanpur city.",
   },
   {
     id: 20,
@@ -192,7 +227,8 @@ const PROJECTS = [
     categories: ["Interior Designing"],
     area: "1,200 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
+    description:
+      "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
   },
 
   {
@@ -203,18 +239,39 @@ const PROJECTS = [
     categories: ["Designing", "Renovation"],
     area: "5,200 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "Sleek mixed-use residential building with timber vertical fins.",
+    description:
+      "Sleek mixed-use residential building with timber vertical fins.",
   },
 
   {
     id: 4,
     src: proj4T,
-    images: [proj4T, Proj4a, Proj4a1, Proj4a2, Proj4a3, Proj4b, Proj4b1, Proj4b2, Proj4c, Proj4c1, Proj4d, Proj4d1, Proj4d2, Proj4d3, Proj4d4, Proj4d5, Proj4d6, Proj4e],
+    images: [
+      proj4T,
+      Proj4a,
+      Proj4a1,
+      Proj4a2,
+      Proj4a3,
+      Proj4b,
+      Proj4b1,
+      Proj4b2,
+      Proj4c,
+      Proj4c1,
+      Proj4d,
+      Proj4d1,
+      Proj4d2,
+      Proj4d3,
+      Proj4d4,
+      Proj4d5,
+      Proj4d6,
+      Proj4e,
+    ],
     title: "Agarwal Residence",
     categories: ["Renovation", "Interior Designing"],
     area: "1,800 Sq.Ft.",
     location: "Civil Lines, Kanpur, UP",
-    description: "An interior renovation project designed to merge two existing flats into a single cohesive residence while modernizing the overall interior design.",
+    description:
+      "An interior renovation project designed to merge two existing flats into a single cohesive residence while modernizing the overall interior design.",
   },
 
   {
@@ -225,7 +282,8 @@ const PROJECTS = [
     categories: ["Interior Designing"],
     area: "48,000 Sq.Ft.",
     location: "Namak factory, Kakadev, Kanpur, UP",
-    description: "A modern luxurious hospitality establishment in the heart of city containing fifty rooms, four banquets, two restaurants, rooftop infinity pool and other modern amenities.",
+    description:
+      "A modern luxurious hospitality establishment in the heart of city containing fifty rooms, four banquets, two restaurants, rooftop infinity pool and other modern amenities.",
   },
 
   {
@@ -236,7 +294,8 @@ const PROJECTS = [
     categories: ["Designing", "Renovation"],
     area: "11,200 Sq.Ft.",
     location: "Swaroop Nagar, Kanpur, UP",
-    description: "A renovation construction project to redevelop a forty year old bungalow to meet modern living standards of a family of CA's.",
+    description:
+      "A renovation construction project to redevelop a forty year old bungalow to meet modern living standards of a family of CA's.",
   },
 
   {
@@ -247,7 +306,8 @@ const PROJECTS = [
     categories: ["Designing", "Renovation"],
     area: "4,500 Sq.Ft.",
     location: "Keshav Nagar, Kanpur, UP",
-    description: "Renovation extension project for an elderly couple. Aim of the project was to extend a floor containing a 2 bhk portion on top of existing single storey building.",
+    description:
+      "Renovation extension project for an elderly couple. Aim of the project was to extend a floor containing a 2 bhk portion on top of existing single storey building.",
   },
 
   {
@@ -258,7 +318,8 @@ const PROJECTS = [
     categories: ["Designing", "Construction"],
     area: "6,800 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "Located in Kidwai Nagar area of Kanpur City, a sophisticated commercial development designed to offer a carpet area of close to 1000sqft per floor. The complex offers upper ground, lower ground plus two commercial floors was undertaken as a turnkey project.",
+    description:
+      "Located in Kidwai Nagar area of Kanpur City, a sophisticated commercial development designed to offer a carpet area of close to 1000sqft per floor. The complex offers upper ground, lower ground plus two commercial floors was undertaken as a turnkey project.",
   },
 
   {
@@ -269,7 +330,8 @@ const PROJECTS = [
     categories: ["Designing", "Renovation"],
     area: "4,900 Sq.Ft.",
     location: "Ratanlal Nagar, Kanpur, UP",
-    description: "A multi-story residence featuring clean minimalist facade. Designed for a single family of eight people, containing a 6 bhk establishment with a garden and lot of open spaces.",
+    description:
+      "A multi-story residence featuring clean minimalist facade. Designed for a single family of eight people, containing a 6 bhk establishment with a garden and lot of open spaces.",
   },
 
   {
@@ -280,7 +342,8 @@ const PROJECTS = [
     categories: ["Designing"],
     area: "5,400 Sq.Ft.",
     location: "Yashoda Nagar, Kanpur, UP",
-    description: "A five bhk bungalow designed for a family of eight members in kanpur city.",
+    description:
+      "A five bhk bungalow designed for a family of eight members in kanpur city.",
   },
 
   {
@@ -291,7 +354,8 @@ const PROJECTS = [
     categories: ["Designing"],
     area: "7,300 Sq.Ft.",
     location: "Mansarovar Yojna, Lucknow, UP",
-    description: "A residential project located in Mansarovar Yojna locality of Lucknow city covering a builtup 7300 Sq.Ft.",
+    description:
+      "A residential project located in Mansarovar Yojna locality of Lucknow city covering a builtup 7300 Sq.Ft.",
   },
 
   {
@@ -302,7 +366,8 @@ const PROJECTS = [
     categories: ["Designing", "Construction"],
     area: "4,100 Sq.Ft.",
     location: "Acharya Nagar, Kanpur, UP",
-    description: "A contemporary multi-story home designed to accommodate two families. With a 2bhk portion on each floor and common amenities and car parking on ground floor.",
+    description:
+      "A contemporary multi-story home designed to accommodate two families. With a 2bhk portion on each floor and common amenities and car parking on ground floor.",
   },
 
   {
@@ -313,7 +378,8 @@ const PROJECTS = [
     categories: ["Designing"],
     area: "4,800 Sq.Ft.",
     location: "New Highway City, Kanpur, UP",
-    description: "A multi storey contemporary residence made for three families in a builtup area of 6400sqft.",
+    description:
+      "A multi storey contemporary residence made for three families in a builtup area of 6400sqft.",
   },
 
   {
@@ -335,7 +401,8 @@ const PROJECTS = [
     categories: ["Designing"],
     area: "6,300 Sq.Ft.",
     location: "Saket Nagar, Kanpur, UP",
-    description: "A modern luxurious apartment designed in builtup area of 6300sqft in saket nagar area of kanpur city.",
+    description:
+      "A modern luxurious apartment designed in builtup area of 6300sqft in saket nagar area of kanpur city.",
   },
 
   {
@@ -346,7 +413,8 @@ const PROJECTS = [
     categories: ["Designing"],
     area: "15,190 Sq.Ft.",
     location: "Kidwai Nagar, Kanpur, UP",
-    description: "A striking mixed-use complex designed to incorporate two floors for commercial and three floors of residential units. Residential floor has two units of three bhk each floor.",
+    description:
+      "A striking mixed-use complex designed to incorporate two floors for commercial and three floors of residential units. Residential floor has two units of three bhk each floor.",
   },
 
   {
@@ -357,7 +425,8 @@ const PROJECTS = [
     categories: ["Designing"],
     area: "3,250 Sq.Ft.",
     location: "Indira Nagar, Lucknow, UP",
-    description: "A residential project located in Indira Nagar locality of Lucknow city covering a builtup 3250 Sq.Ft.",
+    description:
+      "A residential project located in Indira Nagar locality of Lucknow city covering a builtup 3250 Sq.Ft.",
   },
 
   {
@@ -368,82 +437,257 @@ const PROJECTS = [
     categories: ["Designing"],
     area: "3,550 Sq.Ft.",
     location: "Vrindavan colony, Lucknow, UP",
-    description: "A residential project located in Vrindavan colony locality of Lucknow city covering a builtup 3550 Sq.Ft.",
+    description:
+      "A residential project located in Vrindavan colony locality of Lucknow city covering a builtup 3550 Sq.Ft.",
   },
-
 ];
 
-const CATS = ["All", "Designing", "Renovation", "Construction", "Interior Designing"];
+const CATS = [
+  "All",
+  "Designing",
+  "Renovation",
+  "Construction",
+  "Interior Designing",
+];
 
+function ShareIcon({ size = 16 }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <line x1="8.7" y1="10.7" x2="15.3" y2="6.3" />
+      <line x1="8.7" y1="13.3" x2="15.3" y2="17.7" />
+    </svg>
+  );
+}
 
-function ProjectCard({ project, onClick, onHover, index }) {
+function ProjectCard({ project, onClick, onHover, onShare, index }) {
   return (
     <motion.div
       layout
       initial={{ opacity: 0, y: 32 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: 0.45,
+        delay: index * 0.07,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       onClick={() => onClick(project)}
       onHoverStart={() => onHover(project)}
       onTouchStart={() => onHover(project)}
       whileHover={{ y: -5 }}
       style={{ cursor: "pointer" }}
     >
-      <div style={{ position: "relative", paddingTop: "100%", paddingBottom: "25%", overflow: "hidden" }}>
+      <div
+        style={{
+          position: "relative",
+          paddingTop: "100%",
+          paddingBottom: "25%",
+          overflow: "hidden",
+        }}
+      >
         <img
           src={project.src}
           alt={project.title}
           loading="lazy"
           decoding="async"
           style={{
-            position: "absolute", inset: 0, width: "100%", height: "100%",
-            objectFit: "cover", transition: "transform 0.7s ease",
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transition: "transform 0.7s ease",
           }}
-          onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.06)")}
-          onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.transform = "scale(1.06)")
+          }
+          onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
         />
+
         <div
           style={{
-            position: "absolute", inset: 0, background: "rgba(0,0,0,0)",
-            display: "flex", alignItems: "center", justifyContent: "center",
+            position: "absolute",
+            inset: 0,
+            background: "rgba(0,0,0,0)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             transition: "background 0.45s ease",
           }}
-          onMouseEnter={e => {
+          onMouseEnter={(e) => {
             e.currentTarget.style.background = "rgba(0,0,0,0.52)";
             e.currentTarget.querySelector(".ov").style.opacity = "1";
           }}
-          onMouseLeave={e => {
+          onMouseLeave={(e) => {
             e.currentTarget.style.background = "rgba(0,0,0,0)";
             e.currentTarget.querySelector(".ov").style.opacity = "0";
           }}
         >
-          <div className="ov" style={{ opacity: 0, textAlign: "center", transition: "opacity 0.3s" }}>
-            <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(9px,1.3vw,10px)", letterSpacing: "0.3em", color: "#fff", margin: "0 0 8px", textTransform: "uppercase" }}>
+          <div
+            className="ov"
+            style={{
+              opacity: 0,
+              textAlign: "center",
+              transition: "opacity 0.3s",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 500,
+                fontSize: "clamp(9px,1.3vw,10px)",
+                letterSpacing: "0.3em",
+                color: "#fff",
+                margin: "0 0 8px",
+                textTransform: "uppercase",
+              }}
+            >
               View Project
             </p>
-            <div style={{ width: "28px", height: "1px", background: "#C9A84C", margin: "0 auto" }} />
+
+            <div
+              style={{
+                width: "28px",
+                height: "1px",
+                background: "#C9A84C",
+                margin: "0 auto",
+              }}
+            />
           </div>
         </div>
+
+        <button
+          type="button"
+          aria-label={`Share ${project.title}`}
+          title={`Share ${project.title}`}
+          onClick={(event) => {
+            event.stopPropagation();
+            onShare(project);
+          }}
+          onMouseEnter={(event) => {
+            event.currentTarget.style.background = "#C9A84C";
+            event.currentTarget.style.color = "#1a1a1a";
+          }}
+          onMouseLeave={(event) => {
+            event.currentTarget.style.background = "rgba(0,0,0,0.58)";
+            event.currentTarget.style.color = "#fff";
+          }}
+          style={{
+            position: "absolute",
+            top: "12px",
+            right: "12px",
+            zIndex: 5,
+            width: "44px",
+            height: "44px",
+            minWidth: "44px",
+            minHeight: "44px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            border: "1px solid rgba(255,255,255,0.24)",
+            borderRadius: "50%",
+            background: "rgba(0,0,0,0.58)",
+            color: "#fff",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+            padding: 0,
+          }}
+        >
+          <ShareIcon />
+        </button>
       </div>
 
-      <div style={{ paddingTop: "clamp(10px,1.8vh,16px)", paddingBottom: "clamp(6px,1vh,10px)" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px", marginBottom: "7px", flexWrap: "wrap" }}>
-          <div style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}>
-            {project.categories.map(cat => (
-              <span key={cat} style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(7px,1vw,8.5px)", letterSpacing: "0.22em", textTransform: "uppercase", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.38)", padding: "2px 7px", whiteSpace: "nowrap" }}>
+      <div
+        style={{
+          paddingTop: "clamp(10px,1.8vh,16px)",
+          paddingBottom: "clamp(6px,1vh,10px)",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: "8px",
+            marginBottom: "7px",
+            flexWrap: "wrap",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              flexWrap: "wrap",
+            }}
+          >
+            {project.categories.map((cat) => (
+              <span
+                key={cat}
+                style={{
+                  fontFamily: "Poppins, sans-serif",
+                  fontWeight: 500,
+                  fontSize: "clamp(7px,1vw,8.5px)",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#C9A84C",
+                  border: "1px solid rgba(201,168,76,0.38)",
+                  padding: "2px 7px",
+                  whiteSpace: "nowrap",
+                }}
+              >
                 {cat}
               </span>
             ))}
           </div>
-          <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(8px,1.1vw,9.5px)", color: "#aaa", whiteSpace: "nowrap" }}>
+
+          <span
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 300,
+              fontSize: "clamp(8px,1.1vw,9.5px)",
+              color: "#aaa",
+              whiteSpace: "nowrap",
+            }}
+          >
             {project.location}
           </span>
         </div>
-        <h3 style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: "clamp(0.95rem,1.8vw,1.2rem)", color: "#1a1a1a", margin: "0 0 4px" }}>
+
+        <h3
+          style={{
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: 400,
+            fontSize: "clamp(0.95rem,1.8vw,1.2rem)",
+            color: "#1a1a1a",
+            margin: "0 0 4px",
+          }}
+        >
           {project.title}
         </h3>
-        <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(8px,1vw,9.5px)", color: "#999", margin: 0, letterSpacing: "0.14em" }}>
+
+        <p
+          style={{
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(8px,1vw,9.5px)",
+            color: "#999",
+            margin: 0,
+            letterSpacing: "0.14em",
+          }}
+        >
           {project.area}
         </p>
       </div>
@@ -451,46 +695,46 @@ function ProjectCard({ project, onClick, onHover, index }) {
   );
 }
 
-
-function Lightbox({ project, onClose, preloadOne }) {
+function Lightbox({ project, onClose, preloadOne, onShare }) {
   const [imgIndex, setImgIndex] = useState(0);
   const total = project.images.length;
 
-  const prev = useCallback(e => {
-    e?.stopPropagation();
-    setImgIndex(i => (i - 1 + total) % total);
-  }, [total]);
+  const prev = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setImgIndex((i) => (i - 1 + total) % total);
+    },
+    [total],
+  );
 
-  const next = useCallback(e => {
-    e?.stopPropagation();
-    setImgIndex(i => (i + 1) % total);
-  }, [total]);
+  const next = useCallback(
+    (e) => {
+      e?.stopPropagation();
+      setImgIndex((i) => (i + 1) % total);
+    },
+    [total],
+  );
 
-  /* Preload adjacent images immediately, then rest after delay */
   useEffect(() => {
-    // Always preload next + prev instantly
     preloadOne(project.images[(imgIndex + 1) % total]);
     preloadOne(project.images[(imgIndex - 1 + total) % total]);
   }, [imgIndex, project, total, preloadOne]);
 
-  /* On first open: after 1.5s quietly load remaining images
-     one at a time — weak networks won't even notice */
   useEffect(() => {
     const timers = [];
     project.images.forEach((src, i) => {
-      if (i === 0) return; // already loaded (was the thumbnail)
+      if (i === 0) return;
       const t = setTimeout(() => preloadOne(src), 1500 + i * 200);
       timers.push(t);
     });
     return () => timers.forEach(clearTimeout);
   }, [project, preloadOne]);
 
-  /* ── Keyboard navigation + body scroll lock ─────────────── */
   useEffect(() => {
-    const handleKey = e => {
-      if (e.key === "ArrowLeft")  prev();
+    const handleKey = (e) => {
+      if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
-      if (e.key === "Escape")     onClose();
+      if (e.key === "Escape") onClose();
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKey);
@@ -500,28 +744,20 @@ function Lightbox({ project, onClose, preloadOne }) {
     };
   }, [prev, next, onClose]);
 
-  /* ── Trackpad / mouse-wheel horizontal swipe ─────────────────
-     Trackpad two-finger swipes fire as wheel events with deltaX.
-     We debounce with a cooldown so one swipe = one image change.
-  ──────────────────────────────────────────────────────────── */
   const wheelCooldown = useRef(false);
 
   const handleWheel = (e) => {
-    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return; // vertical scroll — ignore
-    if (Math.abs(e.deltaX) < 10) return;                 // too small — ignore
-    if (wheelCooldown.current) return;                   // still in cooldown
+    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
+    if (Math.abs(e.deltaX) < 10) return;
+    if (wheelCooldown.current) return;
     wheelCooldown.current = true;
-    setTimeout(() => { wheelCooldown.current = false; }, 600);
-    if (e.deltaX > 0) next(); else prev();
+    setTimeout(() => {
+      wheelCooldown.current = false;
+    }, 600);
+    if (e.deltaX > 0) next();
+    else prev();
   };
 
-  /* ── Touch / swipe navigation ────────────────────────────────
-     Attached to the image area div (not the img element itself).
-     Swipe LEFT  → next image.
-     Swipe RIGHT → previous image.
-     Threshold: 30px — low enough for quick flicks on mobile.
-     Checks |dx| > |dy| so it never fires on vertical scrolls.
-  ──────────────────────────────────────────────────────────── */
   const swipeStartX = useRef(null);
   const swipeStartY = useRef(null);
 
@@ -539,7 +775,8 @@ function Lightbox({ project, onClose, preloadOne }) {
     swipeStartX.current = null;
     swipeStartY.current = null;
     if (Math.abs(dx) < 30 || Math.abs(dx) < Math.abs(dy)) return;
-    if (dx < 0) next(); else prev();
+    if (dx < 0) next();
+    else prev();
   };
 
   return (
@@ -549,9 +786,13 @@ function Lightbox({ project, onClose, preloadOne }) {
       exit={{ opacity: 0 }}
       onClick={onClose}
       style={{
-        position: "fixed", inset: 0, zIndex: 10000,
+        position: "fixed",
+        inset: 0,
+        zIndex: 10000,
         background: "rgba(0,0,0,0.92)",
-        display: "flex", alignItems: "center", justifyContent: "center",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         padding: "clamp(10px,3vw,32px)",
         cursor: "pointer",
       }}
@@ -561,7 +802,7 @@ function Lightbox({ project, onClose, preloadOne }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        onClick={e => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
         style={{
           background: "#111",
           width: "100%",
@@ -575,40 +816,33 @@ function Lightbox({ project, onClose, preloadOne }) {
           msOverflowStyle: "none",
         }}
       >
-
-        {/* IMAGE AREA ─────────────────────────────────────────
-            • touchAction:"none" on the outer div tells the browser
-              to hand ALL touch events (horizontal AND vertical) to
-              React — no native scroll interference inside this area.
-            • onTouchStart/onTouchEnd on the outer div catch swipes
-              anywhere on the image, not just on the <img> element.
-            • className="lb-image" on <motion.img> opts it out of
-              the global pointer-events:none rule in image-protection.css
-              so touch events can actually bubble up to this div.
-        ──────────────────────────────────────────────────────── */}
         <div
-          style={{ position: "relative", background: "#000", touchAction: "none", userSelect: "none" }}
+          style={{
+            position: "relative",
+            background: "#000",
+            touchAction: "none",
+            userSelect: "none",
+          }}
           onTouchStart={handleSwipeStart}
           onTouchEnd={handleSwipeEnd}
           onWheel={handleWheel}
-          onContextMenu={e => e.preventDefault()}
+          onContextMenu={(e) => e.preventDefault()}
         >
-
           <style>{`
             .lb-img-wrap { aspect-ratio: 16 / 10; }
             @media (max-width: 480px) { .lb-img-wrap { aspect-ratio: 4 / 3; } }
             .lb-modal::-webkit-scrollbar { display: none; }
           `}</style>
 
-          <div className="lb-img-wrap" style={{ width: "100%", position: "relative", overflow: "hidden", background: "#0a0a0a" }}>
-
-            {/* ── Instant image swap — no animation ────────────────
-                Cadence-style: image appears immediately, no fade/slide.
-                A dark skeleton (#0a0a0a bg above) fills the frame while
-                the image downloads so there's no flash of empty space.
-                The img key change triggers an instant src swap;
-                decoding="async" keeps the main thread unblocked.
-            ──────────────────────────────────────────────────────── */}
+          <div
+            className="lb-img-wrap"
+            style={{
+              width: "100%",
+              position: "relative",
+              overflow: "hidden",
+              background: "#0a0a0a",
+            }}
+          >
             <img
               key={imgIndex}
               src={project.images[imgIndex]}
@@ -634,23 +868,52 @@ function Lightbox({ project, onClose, preloadOne }) {
             {total > 1 && (
               <button
                 onClick={prev}
-                onTouchEnd={e => { e.preventDefault(); e.stopPropagation(); prev(); }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  prev();
+                }}
                 aria-label="Previous image"
                 style={{
-                  position: "absolute", left: 0, top: 0, bottom: 0,
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
                   width: "clamp(44px,9vw,70px)",
-                  background: "linear-gradient(to right, rgba(0,0,0,0.50), transparent)",
-                  border: "none", cursor: "pointer", color: "#fff",
-                  display: "flex", alignItems: "center", justifyContent: "flex-start",
+                  background:
+                    "linear-gradient(to right, rgba(0,0,0,0.50), transparent)",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-start",
                   paddingLeft: "clamp(10px,2vw,20px)",
                   transition: "background 0.2s",
-                  zIndex: 3, minWidth: "unset", minHeight: "unset",
+                  zIndex: 3,
+                  minWidth: "unset",
+                  minHeight: "unset",
                   pointerEvents: "auto",
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "linear-gradient(to right, rgba(0,0,0,0.72), transparent)"}
-                onMouseLeave={e => e.currentTarget.style.background = "linear-gradient(to right, rgba(0,0,0,0.50), transparent)"}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background =
+                    "linear-gradient(to right, rgba(0,0,0,0.72), transparent)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background =
+                    "linear-gradient(to right, rgba(0,0,0,0.50), transparent)")
+                }
               >
-                <svg width="clamp(16px,2.5vw,22px)" height="clamp(16px,2.5vw,22px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="clamp(16px,2.5vw,22px)"
+                  height="clamp(16px,2.5vw,22px)"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="15 18 9 12 15 6" />
                 </svg>
               </button>
@@ -659,54 +922,98 @@ function Lightbox({ project, onClose, preloadOne }) {
             {total > 1 && (
               <button
                 onClick={next}
-                onTouchEnd={e => { e.preventDefault(); e.stopPropagation(); next(); }}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  next();
+                }}
                 aria-label="Next image"
                 style={{
-                  position: "absolute", right: 0, top: 0, bottom: 0,
+                  position: "absolute",
+                  right: 0,
+                  top: 0,
+                  bottom: 0,
                   width: "clamp(44px,9vw,70px)",
-                  background: "linear-gradient(to left, rgba(0,0,0,0.50), transparent)",
-                  border: "none", cursor: "pointer", color: "#fff",
-                  display: "flex", alignItems: "center", justifyContent: "flex-end",
+                  background:
+                    "linear-gradient(to left, rgba(0,0,0,0.50), transparent)",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
                   paddingRight: "clamp(10px,2vw,20px)",
                   transition: "background 0.2s",
-                  zIndex: 3, minWidth: "unset", minHeight: "unset",
+                  zIndex: 3,
+                  minWidth: "unset",
+                  minHeight: "unset",
                   pointerEvents: "auto",
                 }}
-                onMouseEnter={e => e.currentTarget.style.background = "linear-gradient(to left, rgba(0,0,0,0.72), transparent)"}
-                onMouseLeave={e => e.currentTarget.style.background = "linear-gradient(to left, rgba(0,0,0,0.50), transparent)"}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background =
+                    "linear-gradient(to left, rgba(0,0,0,0.72), transparent)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background =
+                    "linear-gradient(to left, rgba(0,0,0,0.50), transparent)")
+                }
               >
-                <svg width="clamp(16px,2.5vw,22px)" height="clamp(16px,2.5vw,22px)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="clamp(16px,2.5vw,22px)"
+                  height="clamp(16px,2.5vw,22px)"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </button>
             )}
 
-
             {total > 1 && (
-              <div style={{
-                position: "absolute", bottom: "10px", right: "14px",
-                background: "rgba(0,0,0,0.58)",
-                borderRadius: "20px",
-                padding: "3px 11px",
-                fontFamily: "Inter, sans-serif", fontWeight: 400,
-                fontSize: "clamp(9px,1.1vw,11px)", letterSpacing: "0.1em",
-                color: "rgba(255,255,255,0.85)", zIndex: 3, whiteSpace: "nowrap",
-              }}>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "10px",
+                  right: "14px",
+                  background: "rgba(0,0,0,0.58)",
+                  borderRadius: "20px",
+                  padding: "3px 11px",
+                  fontFamily: "Inter, sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(9px,1.1vw,11px)",
+                  letterSpacing: "0.1em",
+                  color: "rgba(255,255,255,0.85)",
+                  zIndex: 3,
+                  whiteSpace: "nowrap",
+                }}
+              >
                 {imgIndex + 1} / {total}
               </div>
             )}
 
-
             {total > 1 && total <= 16 && (
-              <div style={{
-                position: "absolute", bottom: "12px", left: "50%",
-                transform: "translateX(-50%)",
-                display: "flex", gap: "4px", zIndex: 3,
-              }}>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: "12px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  display: "flex",
+                  gap: "4px",
+                  zIndex: 3,
+                }}
+              >
                 {project.images.map((_, i) => (
                   <button
                     key={i}
-                    onClick={e => { e.stopPropagation(); setImgIndex(i); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setImgIndex(i);
+                    }}
                     aria-label={`Photo ${i + 1}`}
                     style={{
                       width: i === imgIndex ? "20px" : "5px",
@@ -714,36 +1021,56 @@ function Lightbox({ project, onClose, preloadOne }) {
                       borderRadius: "2px",
                       border: "none",
                       cursor: "pointer",
-                      background: i === imgIndex ? "#C9A84C" : "rgba(255,255,255,0.35)",
+                      background:
+                        i === imgIndex ? "#C9A84C" : "rgba(255,255,255,0.35)",
                       transition: "all 0.3s ease",
                       padding: 0,
-                      minWidth: "unset", minHeight: "unset",
+                      minWidth: "unset",
+                      minHeight: "unset",
                     }}
                   />
                 ))}
               </div>
             )}
 
-
-
             <button
               onClick={onClose}
               aria-label="Close"
               style={{
-                position: "absolute", top: "10px", right: "10px",
-                width: "32px", height: "32px",
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                width: "32px",
+                height: "32px",
                 background: "rgba(0,0,0,0.58)",
                 border: "1px solid rgba(255,255,255,0.18)",
                 borderRadius: "2px",
-                cursor: "pointer", color: "#fff",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                zIndex: 10, transition: "background 0.2s",
-                minWidth: "unset", minHeight: "unset",
+                cursor: "pointer",
+                color: "#fff",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                zIndex: 10,
+                transition: "background 0.2s",
+                minWidth: "unset",
+                minHeight: "unset",
               }}
-              onMouseEnter={e => e.currentTarget.style.background = "rgba(201,168,76,0.80)"}
-              onMouseLeave={e => e.currentTarget.style.background = "rgba(0,0,0,0.58)"}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = "rgba(201,168,76,0.80)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = "rgba(0,0,0,0.58)")
+              }
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+              >
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
@@ -751,49 +1078,140 @@ function Lightbox({ project, onClose, preloadOne }) {
           </div>
         </div>
 
-        
         <div style={{ padding: "clamp(18px,3.5vw,28px)", background: "#fff" }}>
-
-
-
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", marginBottom: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "8px",
+              marginBottom: "10px",
+            }}
+          >
             <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-              {project.categories.map(cat => (
-                <span key={cat} style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(8px,1.1vw,9.5px)", letterSpacing: "0.25em", color: "#C9A84C", border: "1px solid rgba(201,168,76,0.4)", padding: "3px 9px" }}>
+              {project.categories.map((cat) => (
+                <span
+                  key={cat}
+                  style={{
+                    fontFamily: "Poppins, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "clamp(8px,1.1vw,9.5px)",
+                    letterSpacing: "0.25em",
+                    color: "#C9A84C",
+                    border: "1px solid rgba(201,168,76,0.4)",
+                    padding: "3px 9px",
+                  }}
+                >
                   {cat}
                 </span>
               ))}
             </div>
-            <span style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(9px,1.2vw,10px)", color: "#aaa" }}>
+            <span
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 300,
+                fontSize: "clamp(9px,1.2vw,10px)",
+                color: "#aaa",
+              }}
+            >
               {project.location}
             </span>
           </div>
 
-
-          <h3 style={{fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: "clamp(1.25rem,3vw,1.9rem)", color: "#1a1a1a", margin: "0 0 4px" }}>
+          <h3
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(1.25rem,3vw,1.9rem)",
+              color: "#1a1a1a",
+              margin: "0 0 4px",
+            }}
+          >
             {project.title}
           </h3>
 
-          <p style={{fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(9px,1.1vw,10.5px)", letterSpacing: "0.15em", color: "#C9A84C", margin: "0 0 clamp(10px,1.8vh,16px)" }}>
+          <p
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 300,
+              fontSize: "clamp(9px,1.1vw,10.5px)",
+              letterSpacing: "0.15em",
+              color: "#C9A84C",
+              margin: "0 0 clamp(10px,1.8vh,16px)",
+            }}
+          >
             {project.area}
           </p>
-          <p style={{fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(12px,1.4vw,14px)", lineHeight: 1.72, color: "#555", margin: 0 }}>
+          <p
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 300,
+              fontSize: "clamp(12px,1.4vw,14px)",
+              lineHeight: 1.72,
+              color: "#555",
+              margin: 0,
+            }}
+          >
             {project.description}
           </p>
 
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              onShare(project);
+            }}
+            aria-label={`Share ${project.title}`}
+            style={{
+              marginTop: "clamp(16px,3vh,24px)",
+              marginRight: "8px",
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 500,
+              fontSize: "clamp(9px,1.2vw,11px)",
+              letterSpacing: "0.2em",
+              padding: "clamp(8px,1.5vh,11px) clamp(16px,2.5vw,22px)",
+              border: "1px solid #C9A84C",
+              background: "#C9A84C",
+              color: "#1a1a1a",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(event) => {
+              event.currentTarget.style.background = "#1a1a1a";
+              event.currentTarget.style.color = "#fff";
+            }}
+            onMouseLeave={(event) => {
+              event.currentTarget.style.background = "#C9A84C";
+              event.currentTarget.style.color = "#1a1a1a";
+            }}
+          >
+            SHARE
+          </button>
 
           <button
             onClick={onClose}
             style={{
               marginTop: "clamp(16px,3vh,24px)",
-              fontFamily: "Poppins, sans-serif", fontWeight: 500,
-              fontSize: "clamp(9px,1.2vw,11px)", letterSpacing: "0.2em",
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 500,
+              fontSize: "clamp(9px,1.2vw,11px)",
+              letterSpacing: "0.2em",
               padding: "clamp(8px,1.5vh,11px) clamp(16px,2.5vw,22px)",
-              border: "1px solid #1a1a1a", background: "transparent",
-              color: "#1a1a1a", cursor: "pointer", transition: "all 0.3s ease",
+              border: "1px solid #1a1a1a",
+              background: "transparent",
+              color: "#1a1a1a",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = "#1a1a1a"; e.currentTarget.style.color = "#fff"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#1a1a1a"; }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#1a1a1a";
+              e.currentTarget.style.color = "#fff";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.color = "#1a1a1a";
+            }}
           >
             CLOSE
           </button>
@@ -803,159 +1221,549 @@ function Lightbox({ project, onClose, preloadOne }) {
   );
 }
 
-
 export default function Projects() {
   const ref = useRef(null);
+
   const inView = useInView(ref, { once: true, margin: "-80px" });
+
   const [selected, setSelected] = useState(null);
+
+  const [shareProject, setShareProject] = useState(null);
+
   const [filter, setFilter] = useState("All");
 
-  const filtered = filter === "All" ? PROJECTS : PROJECTS.filter(p => p.categories.includes(filter));
+  const openProject = useCallback((project) => {
+    setSelected(project);
 
-  
+    const url = new URL(window.location.href);
+
+    url.searchParams.set("project", String(project.id));
+    url.hash = "projects";
+
+    window.history.replaceState(
+      null,
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+  }, []);
+
+  const closeProject = useCallback(() => {
+    setSelected(null);
+    setShareProject(null);
+
+    const url = new URL(window.location.href);
+
+    url.searchParams.delete("project");
+
+    if (url.hash === "#projects") {
+      url.hash = "";
+    }
+
+    window.history.replaceState(
+      null,
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+  }, []);
+
+  const openShare = useCallback((project) => {
+    setShareProject(project);
+  }, []);
+
+  useEffect(() => {
+    const projectParam = new URLSearchParams(window.location.search).get(
+      "project",
+    );
+
+    const projectId = Number(projectParam);
+
+    if (!Number.isInteger(projectId)) return;
+
+    const project = PROJECTS.find((item) => item.id === projectId);
+
+    if (!project) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById("projects")?.scrollIntoView({
+        behavior: "auto",
+        block: "start",
+      });
+
+      setSelected(project);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
+
+  const filtered =
+    filter === "All"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.categories.includes(filter));
+
   const preloadCache = useRef(new Set());
 
-  /* lightbox hai */
   const preloadOne = useCallback((src) => {
     if (!src || preloadCache.current.has(src)) return;
+
     preloadCache.current.add(src);
+
     const img = new Image();
-    /* fetchPriority "low" tells the browser this is background
-       work — it won't compete with visible content on slow networks */
+
     img.fetchPriority = "low";
     img.decoding = "async";
     img.src = src;
   }, []);
 
-  // Called on card hover 
-  const handleCardHover = useCallback((project) => {
-    preloadOne(project.images[0]);
-    preloadOne(project.images[1]); 
-    preloadOne(project.images[2]);
-
-  }, [preloadOne]);
+  const handleCardHover = useCallback(
+    (project) => {
+      preloadOne(project.images[0]);
+      preloadOne(project.images[1]);
+      preloadOne(project.images[2]);
+    },
+    [preloadOne],
+  );
 
   return (
-    <section id="projects" style={{background: "#FCFCFC", position: "relative", overflow: "hidden" }}>
-      <div aria-hidden style={{
-        position: "absolute", inset: 0, pointerEvents: "none",
-        backgroundImage: `
+    <section
+      id="projects"
+      style={{
+        background: "#FCFCFC",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          backgroundImage: `
           linear-gradient(rgba(184,134,11,0.05) 1px, transparent 1px),
           linear-gradient(90deg, rgba(184,134,11,0.05) 1px, transparent 1px)
         `,
-        backgroundSize: "clamp(36px,5vw,56px) clamp(36px,5vw,56px)",
-      }} />
+          backgroundSize: "clamp(36px,5vw,56px) clamp(36px,5vw,56px)",
+        }}
+      />
 
-      <div aria-hidden style={{
-        position: "absolute", top: 0, left: 0, right: 0, height: "2px",
-        background: "linear-gradient(90deg,transparent,rgba(201,168,76,0.05) 25%,rgba(201,168,76,0.40) 75%,transparent)",
-        pointerEvents: "none",
-      }} />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "2px",
+          background:
+            "linear-gradient(90deg,transparent,rgba(201,168,76,0.05) 25%,rgba(201,168,76,0.40) 75%,transparent)",
+          pointerEvents: "none",
+        }}
+      />
 
-      <svg aria-hidden viewBox="0 0 500 500" style={{ position: "absolute", top: "-8%", right: "-5%", width: "clamp(240px,36vw,480px)", height: "clamp(240px,36vw,480px)", opacity: 0.055, pointerEvents: "none" }}>
-        <circle cx="250" cy="250" r="230" fill="none" stroke="#8B6914" strokeWidth="0.8" />
-        <circle cx="250" cy="250" r="170" fill="none" stroke="#8B6914" strokeWidth="0.5" strokeDasharray="4 6" />
-        <circle cx="250" cy="250" r="110" fill="none" stroke="#8B6914" strokeWidth="0.5" />
-        <circle cx="250" cy="250" r="50"  fill="none" stroke="#8B6914" strokeWidth="0.5" strokeDasharray="2 4" />
-        <line x1="20" y1="250" x2="480" y2="250" stroke="#8B6914" strokeWidth="0.6" />
-        <line x1="250" y1="20" x2="250" y2="480" stroke="#8B6914" strokeWidth="0.6" />
-        <line x1="88" y1="88" x2="412" y2="412" stroke="#8B6914" strokeWidth="0.3" strokeDasharray="3 7" />
-        <line x1="412" y1="88" x2="88" y2="412" stroke="#8B6914" strokeWidth="0.3" strokeDasharray="3 7" />
+      <svg
+        aria-hidden
+        viewBox="0 0 500 500"
+        style={{
+          position: "absolute",
+          top: "-8%",
+          right: "-5%",
+          width: "clamp(240px,36vw,480px)",
+          height: "clamp(240px,36vw,480px)",
+          opacity: 0.055,
+          pointerEvents: "none",
+        }}
+      >
+        <circle
+          cx="250"
+          cy="250"
+          r="230"
+          fill="none"
+          stroke="#8B6914"
+          strokeWidth="0.8"
+        />
+        <circle
+          cx="250"
+          cy="250"
+          r="170"
+          fill="none"
+          stroke="#8B6914"
+          strokeWidth="0.5"
+          strokeDasharray="4 6"
+        />
+        <circle
+          cx="250"
+          cy="250"
+          r="110"
+          fill="none"
+          stroke="#8B6914"
+          strokeWidth="0.5"
+        />
+        <circle
+          cx="250"
+          cy="250"
+          r="50"
+          fill="none"
+          stroke="#8B6914"
+          strokeWidth="0.5"
+          strokeDasharray="2 4"
+        />
+        <line
+          x1="20"
+          y1="250"
+          x2="480"
+          y2="250"
+          stroke="#8B6914"
+          strokeWidth="0.6"
+        />
+        <line
+          x1="250"
+          y1="20"
+          x2="250"
+          y2="480"
+          stroke="#8B6914"
+          strokeWidth="0.6"
+        />
+        <line
+          x1="88"
+          y1="88"
+          x2="412"
+          y2="412"
+          stroke="#8B6914"
+          strokeWidth="0.3"
+          strokeDasharray="3 7"
+        />
+        <line
+          x1="412"
+          y1="88"
+          x2="88"
+          y2="412"
+          stroke="#8B6914"
+          strokeWidth="0.3"
+          strokeDasharray="3 7"
+        />
         <circle cx="250" cy="250" r="5" fill="#8B6914" opacity="0.5" />
       </svg>
 
-      <svg aria-hidden viewBox="0 0 260 260" style={{ position: "absolute", bottom: "4%", left: 0, width: "clamp(120px,20vw,260px)", height: "clamp(120px,20vw,260px)", opacity: 0.055, pointerEvents: "none" }}>
-        <line x1="0" y1="260" x2="260" y2="0" stroke="#8B6914" strokeWidth="0.8" />
-        <line x1="0" y1="210" x2="210" y2="0" stroke="#8B6914" strokeWidth="0.5" />
-        <line x1="0" y1="160" x2="160" y2="0" stroke="#8B6914" strokeWidth="0.4" />
-        <line x1="0" y1="110" x2="110" y2="0" stroke="#8B6914" strokeWidth="0.3" />
+      <svg
+        aria-hidden
+        viewBox="0 0 260 260"
+        style={{
+          position: "absolute",
+          bottom: "4%",
+          left: 0,
+          width: "clamp(120px,20vw,260px)",
+          height: "clamp(120px,20vw,260px)",
+          opacity: 0.055,
+          pointerEvents: "none",
+        }}
+      >
+        <line
+          x1="0"
+          y1="260"
+          x2="260"
+          y2="0"
+          stroke="#8B6914"
+          strokeWidth="0.8"
+        />
+        <line
+          x1="0"
+          y1="210"
+          x2="210"
+          y2="0"
+          stroke="#8B6914"
+          strokeWidth="0.5"
+        />
+        <line
+          x1="0"
+          y1="160"
+          x2="160"
+          y2="0"
+          stroke="#8B6914"
+          strokeWidth="0.4"
+        />
+        <line
+          x1="0"
+          y1="110"
+          x2="110"
+          y2="0"
+          stroke="#8B6914"
+          strokeWidth="0.3"
+        />
       </svg>
 
       {[
-        { top: "clamp(14px,2.5vh,28px)",    left:  "clamp(12px,2.5vw,36px)", rotate: "0deg"   },
-        { top: "clamp(14px,2.5vh,28px)",    right: "clamp(12px,2.5vw,36px)", rotate: "90deg"  },
-        { bottom: "clamp(14px,2.5vh,28px)", left:  "clamp(12px,2.5vw,36px)", rotate: "270deg" },
-        { bottom: "clamp(14px,2.5vh,28px)", right: "clamp(12px,2.5vw,36px)", rotate: "180deg" },
+        {
+          top: "clamp(14px,2.5vh,28px)",
+          left: "clamp(12px,2.5vw,36px)",
+          rotate: "0deg",
+        },
+        {
+          top: "clamp(14px,2.5vh,28px)",
+          right: "clamp(12px,2.5vw,36px)",
+          rotate: "90deg",
+        },
+        {
+          bottom: "clamp(14px,2.5vh,28px)",
+          left: "clamp(12px,2.5vw,36px)",
+          rotate: "270deg",
+        },
+        {
+          bottom: "clamp(14px,2.5vh,28px)",
+          right: "clamp(12px,2.5vw,36px)",
+          rotate: "180deg",
+        },
       ].map((pos, i) => (
-        <svg key={i} aria-hidden viewBox="0 0 28 28" width="28" height="28"
-          style={{ position: "absolute", ...pos, opacity: 0.22, pointerEvents: "none", transform: `rotate(${pos.rotate})` }}>
-          <line x1="0" y1="0" x2="0"  y2="16" stroke="#8B6914" strokeWidth="1.2" />
-          <line x1="0" y1="0" x2="16" y2="0"  stroke="#8B6914" strokeWidth="1.2" />
+        <svg
+          key={i}
+          aria-hidden
+          viewBox="0 0 28 28"
+          width="28"
+          height="28"
+          style={{
+            position: "absolute",
+            ...pos,
+            opacity: 0.22,
+            pointerEvents: "none",
+            transform: `rotate(${pos.rotate})`,
+          }}
+        >
+          <line
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="16"
+            stroke="#8B6914"
+            strokeWidth="1.2"
+          />
+          <line
+            x1="0"
+            y1="0"
+            x2="16"
+            y2="0"
+            stroke="#8B6914"
+            strokeWidth="1.2"
+          />
         </svg>
       ))}
 
-      <div aria-hidden style={{
-        position: "absolute", right: "clamp(6px,1.5vw,18px)", top: "15%", bottom: "15%", width: "1px",
-        background: "linear-gradient(180deg,transparent,rgba(184,134,11,0.18) 20%,rgba(184,134,11,0.18) 80%,transparent)",
-        pointerEvents: "none",
-      }} />
+      <div
+        aria-hidden
+        style={{
+          position: "absolute",
+          right: "clamp(6px,1.5vw,18px)",
+          top: "15%",
+          bottom: "15%",
+          width: "1px",
+          background:
+            "linear-gradient(180deg,transparent,rgba(184,134,11,0.18) 20%,rgba(184,134,11,0.18) 80%,transparent)",
+          pointerEvents: "none",
+        }}
+      />
 
-      <div style={{position: "absolute", inset: 0, zIndex: 1, background: "rgba(252,251,250,0.2)" }} />
-      <div ref={ref} style={{position: "relative", zIndex: 2, maxWidth: "1280px", margin: "0 auto", padding: "clamp(56px,9vh,128px) clamp(20px,6vw,96px)" }}>
-
-        <div style={{ display:"flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "clamp(16px,3vh,24px)", marginBottom: "clamp(28px,5vh,52px)" }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          background: "rgba(252,251,250,0.2)",
+        }}
+      />
+      <div
+        ref={ref}
+        style={{
+          position: "relative",
+          zIndex: 2,
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding: "clamp(56px,9vh,128px) clamp(20px,6vw,96px)",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: "clamp(16px,3vh,24px)",
+            marginBottom: "clamp(28px,5vh,52px)",
+          }}
+        >
           <div>
-            <motion.p initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.7 }}
-              style={{ fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(9px,1.2vw,10px)", letterSpacing: "0.42em", color: "#C9A84C", textTransform: "uppercase", margin: "0 0 10px" }}>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.7 }}
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 500,
+                fontSize: "clamp(9px,1.2vw,10px)",
+                letterSpacing: "0.42em",
+                color: "#C9A84C",
+                textTransform: "uppercase",
+                margin: "0 0 10px",
+              }}
+            >
               Our Work
             </motion.p>
-            <motion.h2 initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.1 }}
-              style={{ fontFamily: "Poppins, sans-serif", fontWeight: 400, fontSize: "clamp(1.8rem,4.2vw,3.2rem)", color: "#1a1a1a", margin: 0 }}>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 400,
+                fontSize: "clamp(1.8rem,4.2vw,3.2rem)",
+                color: "#1a1a1a",
+                margin: 0,
+              }}
+            >
               Selected Projects
             </motion.h2>
-            <motion.div initial={{ scaleX: 0 }} animate={inView ? { scaleX: 1 } : {}} transition={{ duration: 0.7, delay: 0.25 }}
-              style={{ width: "clamp(36px,4vw,48px)", height: "1px", background: "#C9A84C", transformOrigin: "left", marginTop: "clamp(12px,2vh,18px)" }} />
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 0.7, delay: 0.25 }}
+              style={{
+                width: "clamp(36px,4vw,48px)",
+                height: "1px",
+                background: "#C9A84C",
+                transformOrigin: "left",
+                marginTop: "clamp(12px,2vh,18px)",
+              }}
+            />
           </div>
 
-          <motion.div initial={{opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.28 }}
-            style={{ display: "flex", gap: "clamp(5px,0.8vw,10px)", flexWrap: "wrap", alignItems: "center" }}>
-            {CATS.map(cat => {
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.28 }}
+            style={{
+              display: "flex",
+              gap: "clamp(5px,0.8vw,10px)",
+              flexWrap: "wrap",
+              alignItems: "center",
+            }}
+          >
+            {CATS.map((cat) => {
               const active = filter === cat;
-              const count = cat === "All" ? PROJECTS.length : PROJECTS.filter(p => p.categories.includes(cat)).length;
+              const count =
+                cat === "All"
+                  ? PROJECTS.length
+                  : PROJECTS.filter((p) => p.categories.includes(cat)).length;
               return (
-                <button key={cat} onClick={() => setFilter(cat)}
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
                   style={{
-                    fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(8px,1.1vw,10.5px)", letterSpacing: "0.16em",
+                    fontFamily: "Poppins, sans-serif",
+                    fontWeight: 500,
+                    fontSize: "clamp(8px,1.1vw,10.5px)",
+                    letterSpacing: "0.16em",
                     padding: "clamp(5px,1vh,8px) clamp(9px,1.4vw,15px)",
-                    border: active ? "1px solid #1a1a1a" : "1px solid rgba(26,26,26,0.22)",
+                    border: active
+                      ? "1px solid #1a1a1a"
+                      : "1px solid rgba(26,26,26,0.22)",
                     background: active ? "#1a1a1a" : "rgba(252,251,250,0.80)",
                     color: active ? "#fff" : "#666",
-                    cursor: "pointer", transition: "all 0.28s ease", whiteSpace: "nowrap",
-                    display: "inline-flex", alignItems: "center", gap: "4px",
+                    cursor: "pointer",
+                    transition: "all 0.28s ease",
+                    whiteSpace: "nowrap",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
                   }}
-                  onMouseEnter={e => { if (!active) { e.currentTarget.style.borderColor = "#1a1a1a"; e.currentTarget.style.color = "#1a1a1a"; e.currentTarget.style.background = "rgba(252,251,250,0.98)"; } }}
-                  onMouseLeave={e => { if (!active) { e.currentTarget.style.borderColor = "rgba(26,26,26,0.22)"; e.currentTarget.style.color = "#666"; e.currentTarget.style.background = "rgba(252,251,250,0.80)"; } }}
+                  onMouseEnter={(e) => {
+                    if (!active) {
+                      e.currentTarget.style.borderColor = "#1a1a1a";
+                      e.currentTarget.style.color = "#1a1a1a";
+                      e.currentTarget.style.background =
+                        "rgba(252,251,250,0.98)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!active) {
+                      e.currentTarget.style.borderColor = "rgba(26,26,26,0.22)";
+                      e.currentTarget.style.color = "#666";
+                      e.currentTarget.style.background =
+                        "rgba(252,251,250,0.80)";
+                    }
+                  }}
                 >
                   {cat}
-                  <span style={{ fontSize: "clamp(7px,0.9vw,8.5px)", opacity: 0.55, fontWeight: 400 }}>({count})</span>
+                  <span
+                    style={{
+                      fontSize: "clamp(7px,0.9vw,8.5px)",
+                      opacity: 0.55,
+                      fontWeight: 400,
+                    }}
+                  >
+                    ({count})
+                  </span>
                 </button>
               );
             })}
           </motion.div>
         </div>
 
-        <motion.div layout style={{display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))", gap: "clamp(16px,2.5vw,28px)" }}>
+        <motion.div
+          layout
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
+            gap: "clamp(16px,2.5vw,28px)",
+          }}
+        >
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
-              <ProjectCard key={project.id} project={project} index={i} onClick={setSelected} onHover={handleCardHover} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={i}
+                onClick={openProject}
+                onShare={openShare}
+                onHover={handleCardHover}
+              />
             ))}
           </AnimatePresence>
         </motion.div>
 
-
         {filtered.length === 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: "center", padding: "clamp(40px,8vh,80px) 0" }}>
-            <p style={{ fontFamily: "Poppins, sans-serif", fontWeight: 300, fontSize: "clamp(11px,1.4vw,13px)", letterSpacing: "0.25em", color: "#bbb", textTransform: "uppercase" }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            style={{ textAlign: "center", padding: "clamp(40px,8vh,80px) 0" }}
+          >
+            <p
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: 300,
+                fontSize: "clamp(11px,1.4vw,13px)",
+                letterSpacing: "0.25em",
+                color: "#bbb",
+                textTransform: "uppercase",
+              }}
+            >
               No projects in this category yet
             </p>
           </motion.div>
         )}
 
-        
-
-
-        <motion.p initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.8 }}
-          style={{ textAlign: "center", fontFamily: "Poppins, sans-serif", fontWeight: 500, fontSize: "clamp(8.5px,1.2vw,10px)", letterSpacing: "0.3em", color: "#bbb", marginTop: "clamp(28px,5vh,48px)", textTransform: "uppercase" }}>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.8 }}
+          style={{
+            textAlign: "center",
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: 500,
+            fontSize: "clamp(8.5px,1.2vw,10px)",
+            letterSpacing: "0.3em",
+            color: "#bbb",
+            marginTop: "clamp(28px,5vh,48px)",
+            textTransform: "uppercase",
+          }}
+        >
           !!Next One Can Be Yours!!
         </motion.p>
       </div>
@@ -963,10 +1771,26 @@ export default function Projects() {
       <ScrollIndicator nextSection="contact" dark={false} />
 
 
+
       <AnimatePresence>
-        {selected && <Lightbox project={selected} onClose={() => setSelected(null)} preloadOne={preloadOne} />}
+        {selected && (
+          <Lightbox
+            project={selected}
+            onClose={closeProject}
+            onShare={openShare}
+            preloadOne={preloadOne}
+          />
+        )}
       </AnimatePresence>
 
+      <AnimatePresence>
+        {shareProject && (
+          <ProjectShare
+            project={shareProject}
+            onClose={() => setShareProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
