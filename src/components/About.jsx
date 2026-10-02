@@ -403,7 +403,7 @@ export default function About() {
                   fontSize: 'clamp(10px,1.1vw,11px)', letterSpacing: '0.1em',
                   color: '#8B6914', margin: 0,
                 }}>
-                  — Ar. Utsav Gupta
+                  — Our Philosophy
                 </p>
               </div>
 

@@ -17,6 +17,7 @@ import hero7srcset from "../assets/hero7.jpg?w=480;768;1280;1920;3840&format=web
 import hero8srcset from "../assets/hero8.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
 import hero9srcset from "../assets/hero9.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
 import hero10srcset from "../assets/hero10.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
+import hero11srcset from "../assets/hero11.jpg?w=480;768;1280;1920;3840&format=webp&as=srcset";
 
 import hero1fb from "../assets/hero1.jpg";
 import hero2fb from "../assets/hero2.jpg";
@@ -28,6 +29,8 @@ import hero7fb from "../assets/hero7.jpg";
 import hero8fb from "../assets/hero8.jpg";
 import hero9fb from "../assets/hero9.jpg";
 import hero10fb from "../assets/hero10.jpg";
+import hero11fb from "../assets/hero10.jpg";
+
 
 const SLIDES = [
   { srcset: hero1srcset, fallback: hero1fb, pos: "center 35%" },
@@ -39,7 +42,7 @@ const SLIDES = [
   { srcset: hero7srcset, fallback: hero7fb, pos: "center 35%" },
   { srcset: hero8srcset, fallback: hero8fb, pos: "center center" },
   { srcset: hero9srcset, fallback: hero9fb, pos: "center 30%" },
-  { srcset: hero10srcset, fallback: hero10fb, pos: "center center" },
+  { srcset: hero10srcset, fallback: hero10fb, pos: "center center" },{srcset: hero11srcset, fallback: hero11fb, pos: "center center"},
 ];
 
 export default function Hero() {
@@ -159,7 +162,7 @@ export default function Hero() {
           .hero-eyebrow { letter-spacing: 0.14em !important; font-size: 7px !important; }
           .hero-dot     { width: 14px !important; }
         }
-        @media (min-width: 2560px) {
+        @media (min-width: 2560px) {j
           .hero-inner   { max-width: 1000px !important; }
           .hero-h1      { font-size: 3.6rem !important; }
           .hero-eyebrow { font-size: 14px !important; }

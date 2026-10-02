@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useInView, AnimatePresence, motion } from "framer-motion";
 
 import ScrollIndicator from "./ScrollIndicator";
@@ -31,7 +26,6 @@ import proj18T from "../assets/project18.jpg";
 import proj19T from "../assets/project19.jpg";
 import proj20T from "../assets/project20.jpg";
 import proj21T from "../assets/project21.jpg";
-import proj22T from "../assets/project22.jpg";
 
 // Project 1 - The Vantage House
 import Proj1a from "../assets/project1a.jpg";
@@ -69,9 +63,6 @@ import Proj4d4 from "../assets/project4d4.jpg";
 import Proj4d5 from "../assets/project4d5.jpg";
 import Proj4d6 from "../assets/project4d6.jpg";
 import Proj4e from "../assets/project4e.jpg";
-
-
-
 
 //Project 5 - Highway City Residence
 import Proj5a from "../assets/project5a.jpg";
@@ -118,6 +109,8 @@ import Proj19b from "../assets/project19b.jpg";
 import Proj19c from "../assets/project19c.jpg";
 import Proj19d from "../assets/project19d.jpg";
 import Proj19e from "../assets/project19e.jpg";
+import Proj19f from "../assets/project19f.jpg";
+import Proj19g from "../assets/project19g.jpg";
 
 //Project 20 - Kokkum Cafe
 import Proj20a from "../assets/project20a.jpg";
@@ -137,9 +130,6 @@ import Proj21f from "../assets/project21f.jpg";
 import Proj21g from "../assets/project21g.jpg";
 import Proj21h from "../assets/project21h.jpg";
 import Proj21i from "../assets/project21i.jpg";
-
-//Project 22 - Hotel Elevation
-import Proj22a from "../assets/project22a.jpg";
 
 const PROJECTS = [
   {
@@ -197,17 +187,7 @@ const PROJECTS = [
     description:
       "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
   },
-  {
-    id: 22,
-    src: proj22T,
-    images: [proj22T, Proj22a],
-    title: "",
-    categories: ["Designing", "Construction"],
-    area: "2,650 Sq.Ft.",
-    location: "Gulmohar Vihar, Kanpur, UP",
-    description:
-      "This interior design project features a warm, inviting dining space that combines classic European-inspired aesthetics with modern functional elements.",
-  },
+
   {
     id: 2,
     src: proj2T,
@@ -277,9 +257,18 @@ const PROJECTS = [
   {
     id: 19,
     src: proj19T,
-    images: [proj19T, Proj19a, Proj19b, Proj19c, Proj19d, Proj19e],
+    images: [
+      proj19T,
+      Proj19a,
+      Proj19b,
+      Proj19c,
+      Proj19d,
+      Proj19e,
+      Proj19f,
+      Proj19g,
+    ],
     title: "Meridian Sky",
-    categories: ["Interior Designing"],
+    categories: ["Interior Designing", "Designing"],
     area: "48,000 Sq.Ft.",
     location: "Namak factory, Kakadev, Kanpur, UP",
     description:
@@ -578,28 +567,30 @@ function ProjectCard({ project, onClick, onHover, onShare, index }) {
             onShare(project);
           }}
           onMouseEnter={(event) => {
-            event.currentTarget.style.background = "#C9A84C";
-            event.currentTarget.style.color = "#1a1a1a";
+            event.currentTarget.style.background = "transparent";
+            event.currentTarget.style.color = "#C9A84C";
+            event.currentTarget.style.borderColor = "#C9A84C";
           }}
           onMouseLeave={(event) => {
-            event.currentTarget.style.background = "rgba(0,0,0,0.58)";
+            event.currentTarget.style.background = "transparent";
             event.currentTarget.style.color = "#fff";
+            event.currentTarget.style.borderColor = "#fff";
           }}
           style={{
             position: "absolute",
             top: "12px",
             right: "12px",
             zIndex: 5,
-            width: "44px",
-            height: "44px",
-            minWidth: "44px",
-            minHeight: "44px",
+            width: "40px",
+            height: "40px",
+            minWidth: "40px",
+            minHeight: "40px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            border: "1px solid rgba(255,255,255,0.24)",
+            border: "1px solid #fff",
             borderRadius: "50%",
-            background: "rgba(0,0,0,0.58)",
+            background: "rgba(0,0,0,0.11)",
             color: "#fff",
             cursor: "pointer",
             transition: "all 0.2s ease",
@@ -1769,8 +1760,6 @@ export default function Projects() {
       </div>
 
       <ScrollIndicator nextSection="contact" dark={false} />
-
-
 
       <AnimatePresence>
         {selected && (
