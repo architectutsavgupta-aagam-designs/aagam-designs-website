@@ -38,10 +38,6 @@ export default function Contact() {
         position: "relative",
       }}
     >
-      
-
-
-
       <div
         aria-hidden
         style={{
@@ -56,7 +52,6 @@ export default function Contact() {
         }}
       />
 
-
       <div
         aria-hidden
         style={{
@@ -70,7 +65,6 @@ export default function Contact() {
           pointerEvents: "none",
         }}
       />
-
 
       <svg
         aria-hidden
@@ -245,7 +239,6 @@ export default function Contact() {
         ))}
       </svg>
 
-
       <svg
         aria-hidden
         viewBox="0 0 400 400"
@@ -355,7 +348,6 @@ export default function Contact() {
         />
       </svg>
 
-
       <svg
         aria-hidden
         viewBox="0 0 360 360"
@@ -457,7 +449,6 @@ export default function Contact() {
         />
       </svg>
 
-
       <svg
         aria-hidden
         viewBox="0 0 220 220"
@@ -531,7 +522,6 @@ export default function Contact() {
           strokeWidth="0.35"
         />
       </svg>
-
 
       <svg
         aria-hidden
@@ -607,7 +597,6 @@ export default function Contact() {
         />
       </svg>
 
-
       <svg
         aria-hidden
         viewBox="0 0 140 140"
@@ -673,7 +662,6 @@ export default function Contact() {
           strokeWidth="0.3"
         />
       </svg>
-
 
       <svg
         aria-hidden
@@ -741,7 +729,6 @@ export default function Contact() {
         />
       </svg>
 
-
       {[
         {
           top: "clamp(14px,2.5vh,28px)",
@@ -797,7 +784,6 @@ export default function Contact() {
         </svg>
       ))}
 
-
       <div
         aria-hidden
         style={{
@@ -811,8 +797,6 @@ export default function Contact() {
           pointerEvents: "none",
         }}
       />
-
-
 
       <div
         ref={ref}
@@ -840,7 +824,6 @@ export default function Contact() {
           Get In Touch
         </motion.p>
 
-
         <motion.h2
           initial={{ opacity: 0, y: 22 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -859,7 +842,6 @@ export default function Contact() {
           <em style={{ fontStyle: "italic" }}>Extraordinary Together</em>
         </motion.h2>
 
-
         <motion.div
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
@@ -873,7 +855,6 @@ export default function Contact() {
           }}
         />
 
-
         <div
           style={{
             display: "grid",
@@ -882,7 +863,6 @@ export default function Contact() {
             gap: "clamp(32px,6vw,64px)",
           }}
         >
-
           <motion.div
             variants={fadeInLeft}
             initial="hidden"
@@ -894,7 +874,6 @@ export default function Contact() {
               gap: "clamp(24px,4.5vh,40px)",
             }}
           >
-
             <div>
               <InfoLabel icon={<PinIcon />}>Office Address</InfoLabel>
               <p
@@ -927,56 +906,77 @@ export default function Contact() {
               </p>
             </div>
 
-
             <div>
               <InfoLabel icon={<PhoneIcon />}>Phone</InfoLabel>
-              <a
-                href="tel:+918601111494"
+
+              <div
                 style={{
-                  display: "block",
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 400,
-                  fontSize: "clamp(14px,1.6vw,16px)",
-                  color: "#2a2a2a",
-                  textDecoration: "none",
-                  transition: "color 0.25s",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "2px",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#8B6914")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#2a2a2a")}
               >
-                +91 86011 11494
-              </a>
-              <a
-                href="tel:+918318415303"
-                style={{
-                  display: "block",
-                  fontFamily: "Poppins, sans-serif",
-                  fontWeight: 400,
-                  fontSize: "clamp(14px,1.6vw,16px)",
-                  color: "#2a2a2a",
-                  textDecoration: "none",
-                  transition: "color 0.25s",
-                  marginTop: "4px",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#8B6914")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#2a2a2a")}
-              >
-                +91 83184 15303
-              </a>
+                <a
+                  href="tel:+918601111494"
+                  style={{
+                    display: "block",
+                    fontFamily: "Poppins, sans-serif",
+                    fontWeight: 400,
+                    fontSize: "clamp(14px,1.6vw,16px)",
+                    lineHeight: 2,
+                    color: "#2a2a2a",
+                    textDecoration: "none",
+                    transition: "color 0.25s",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#8B6914")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#2a2a2a")
+                  }
+                >
+                  +91 86011 11494
+                </a>
+
+                <a
+                  href="tel:+918318415303"
+                  style={{
+                    display: "block",
+                    fontFamily: "Poppins, sans-serif",
+                    fontWeight: 400,
+                    fontSize: "clamp(14px,1.6vw,16px)",
+                    lineHeight: 0,
+                    color: "#2a2a2a",
+                    textDecoration: "none",
+                    transition: "color 0.25s",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#8B6914")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#2a2a2a")
+                  }
+                >
+                  +91 83184 15303
+                </a>
+              </div>
+
+              <InfoLabel icon={null}>Studio Hours</InfoLabel>
+
               <p
                 style={{
                   fontFamily: "Poppins, sans-serif",
                   fontWeight: 300,
                   fontSize: "clamp(11px,1.3vw,12px)",
+                  lineHeight: 1.5,
                   color: "#999",
-                  margin: "6px 0 0",
+                  margin: "0",
                   letterSpacing: "0.04em",
                 }}
               >
                 Monday – Saturday | 10:30 AM – 7:00 PM
               </p>
             </div>
-
 
             <div>
               <p
@@ -1038,7 +1038,6 @@ export default function Contact() {
             </div>
           </motion.div>
 
-
           <motion.div
             variants={fadeInRight}
             initial="hidden"
@@ -1098,7 +1097,6 @@ export default function Contact() {
     </section>
   );
 }
-
 
 function InfoLabel({ icon, children }) {
   return (

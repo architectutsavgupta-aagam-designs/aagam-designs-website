@@ -196,3 +196,41 @@ iframe {
 :focus:not(:focus-visible) {
   outline: none;
 }
+
+.footer-brand-heading {
+  width: fit-content;
+}
+
+@media (max-width: 767px) {
+  .footer-brand-heading {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .footer-brand-divider {
+    align-self: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-socials {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+@media (max-width: 767px) {
+  .footer-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-main-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

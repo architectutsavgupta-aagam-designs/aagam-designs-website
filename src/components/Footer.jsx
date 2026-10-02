@@ -2,7 +2,6 @@ import { SITE_META } from "../constants/index";
 import kanpurBg from "../assets/kanpur_dark_footer.png";
 import { color } from "framer-motion";
 
-
 const SOCIALS = [
   {
     name: "Instagram",
@@ -85,7 +84,6 @@ const SERVICES_LIST = [
 const scrollTo = (id) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-
 export default function Footer() {
   const year = new Date().getFullYear();
 
@@ -97,7 +95,6 @@ export default function Footer() {
         overflow: "hidden",
       }}
     >
-
       <img
         src={kanpurBg}
         alt="Kanpur Skyline"
@@ -115,8 +112,6 @@ export default function Footer() {
         }}
       />
 
-
-
       <div
         style={{
           position: "absolute",
@@ -132,9 +127,6 @@ export default function Footer() {
         }}
       />
 
-
-
-
       <div
         style={{
           position: "absolute",
@@ -149,13 +141,6 @@ export default function Footer() {
         }}
       />
 
-
-
-
-
-
-
-
       <div
         style={{
           position: "absolute",
@@ -168,8 +153,6 @@ export default function Footer() {
           backgroundSize: "52px 52px",
         }}
       />
-
-
 
       <div
         style={{
@@ -184,8 +167,6 @@ export default function Footer() {
         }}
       />
 
-
-
       <div style={{ position: "relative", zIndex: 5 }}>
         <div
           style={{
@@ -194,8 +175,6 @@ export default function Footer() {
             padding: "clamp(48px,7vh,80px) clamp(24px,6vw,80px) 0",
           }}
         >
-
-
           <div
             style={{
               display: "grid",
@@ -205,38 +184,42 @@ export default function Footer() {
               paddingBottom: "clamp(40px,6vh,64px)",
             }}
           >
-
             <div
               style={{ display: "flex", flexDirection: "column", gap: "18px" }}
             >
-              <div>
+              <div className="footer-brand-heading">
                 <p
                   style={{
+                    display: "block",
                     fontFamily: "Poppins, sans-serif",
-                    fontWeight: 600,
-                    fontSize: "clamp(15px,1.6vw,19px)",
-                    letterSpacing: "0.10em",
+                    fontWeight: 800,
+                    fontSize: "clamp(18px, 1.55vw, 24px)",
+                    lineHeight: 1.05,
+                    letterSpacing: "0.08em",
                     color: "#ffffff",
-                    margin: "0 0 3px",
+                    margin: "0 0 4px",
                   }}
                 >
                   AAGAM DESIGNS
                 </p>
+
                 <p
                   style={{
+                    display: "block",
                     fontFamily: "Inter, sans-serif",
-                    fontWeight: 300,
-                    fontSize: "clamp(9px,0.95vw,10px)",
-                    letterSpacing: "0.32em",
+                    fontWeight: 400,
+                    fontSize: "clamp(8px, 0.68vw, 11px)",
+                    lineHeight: 1.2,
+                    letterSpacing: "0.087em",
                     color: "#C9A84C",
                     margin: 0,
-                    // textTransform: "uppercase",
                   }}
                 >
-                  by Ar. Utsav Gupta
+                  by Ar. Utsav Gupta and Aishwar Gupta
                 </p>
               </div>
               <div
+                className="footer-brand-divider"
                 style={{
                   width: "40px",
                   height: "1px",
@@ -258,6 +241,7 @@ export default function Footer() {
               </p>
 
               <div
+                className="footer-socials"
                 style={{
                   display: "flex",
                   gap: "8px",
@@ -303,7 +287,6 @@ export default function Footer() {
                 ))}
               </div>
             </div>
-
 
             <div>
               <p
@@ -364,8 +347,6 @@ export default function Footer() {
               </div>
             </div>
 
-
-
             <div>
               <p
                 style={{
@@ -425,7 +406,6 @@ export default function Footer() {
               </div>
             </div>
 
-
             <div>
               <div
                 style={{
@@ -455,7 +435,6 @@ export default function Footer() {
                     gap: "clamp(10px,1.6vh,14px)",
                   }}
                 >
-
                   <div
                     style={{
                       display: "flex",
@@ -496,7 +475,6 @@ export default function Footer() {
                     </p>
                   </div>
 
-
                   <div
                     style={{
                       display: "flex",
@@ -515,7 +493,7 @@ export default function Footer() {
                         width: 15,
                         height: 15,
                         flexShrink: 0,
-                        opacity:0.65,
+                        opacity: 0.65,
                       }}
                     >
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.17h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
@@ -542,7 +520,6 @@ export default function Footer() {
                       {SITE_META.phone1}
                     </a>
                   </div>
-
 
                   <div
                     style={{
@@ -598,7 +575,6 @@ export default function Footer() {
             </div>
           </div>
 
-
           <div
             style={{
               height: "1px",
@@ -606,7 +582,6 @@ export default function Footer() {
                 "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.6) 20%, rgba(201,168,76,0.9) 50%, rgba(201,168,76,0.6) 80%, transparent 100%)",
             }}
           />
-
 
           <div
             style={{
@@ -643,7 +618,8 @@ export default function Footer() {
                 margin: 0,
               }}
             >
-              ARCHITECTURE · INTERIOR DESIGNING · CONSTRUCTION · RENOVATION
+              ARCHITECTURE · INTERIOR DESIGNING · CONSTRUCTION · RENOVATION ·
+              TURNKEY SOLUTIONS
             </p>
 
             <p
@@ -657,7 +633,7 @@ export default function Footer() {
               }}
             >
               DESIGNED & DEVELOPED WITH{" "}
-              <span style={{ color: "#C9A84C"}}>♥</span> BY{" "}
+              <span style={{ color: "#C9A84C" }}>♥</span> BY{" "}
               <a
                 href="https://mydataapplied.vercel.app/"
                 target="_blank"
