@@ -395,7 +395,7 @@ export default function About() {
                     color: '#555', margin: '0 0 10px',
                   }}
                 >
-                  "If you can imagine it, we can design, build and deliver it beautifully,
+                  "If you can dream it, we can design, build and deliver it beautifully,
                   efficiently and with absolute attention to detail."
                 </p>
                 <p style={{
