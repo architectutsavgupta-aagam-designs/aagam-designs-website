@@ -34,33 +34,6 @@ export default function Logo({ onDark = false, bgColor = 'transparent' }) {
           userSelect: 'none',
         }}
       />
-
-
-      <svg
-        viewBox="0 0 619 413"
-        preserveAspectRatio="xMidYMid meet"
-        aria-hidden
-        style={{
-          position:      'absolute',
-          inset:          0,
-          width:         '100%',
-          height:        '100%',
-          pointerEvents: 'none',
-        }}
-      >
-        <text
-          x={ex}
-          y={ey}
-          fontFamily="'Cormorant Garamond', Georgia, serif"
-          fontWeight={fs}
-          fontSize={fs}
-          letterSpacing="0.1"
-          fill={estdClr}
-          textRendering="geometricPrecision"
-        >
-          |Estd. 2020|
-        </text>
-      </svg>
     </div>
   )
 }

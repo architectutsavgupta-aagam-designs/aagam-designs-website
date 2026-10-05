@@ -207,15 +207,15 @@ export default function Footer() {
                   style={{
                     display: "block",
                     fontFamily: "Inter, sans-serif",
-                    fontWeight: 400,
+                    fontWeight: 50,
                     fontSize: "clamp(8px, 0.68vw, 11px)",
                     lineHeight: 1.2,
-                    letterSpacing: "0.087em",
+                    letterSpacing: "0.17em",
                     color: "#C9A84C",
                     margin: 0,
                   }}
                 >
-                  by Ar. Utsav Gupta and Aishwar Gupta
+                  Architecture Designed With Intent
                 </p>
               </div>
               <div
